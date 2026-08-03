@@ -1,0 +1,6 @@
+{
+  "name": "RoyalPet's",
+  "description": "RoyalPet's pet store hero section with responsive layout, custom keyframe animations, and rich interactive components.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
