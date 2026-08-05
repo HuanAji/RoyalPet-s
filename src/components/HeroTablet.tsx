@@ -1,6 +1,8 @@
 import React from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, ArrowRight, Star, Plus } from 'lucide-react';
 import { ASSETS, CAT_FOOD_PRODUCT, DOG_FOOD_PRODUCT } from '../constants';
+import { CurvedTitle } from './CurvedTitle';
 
 interface HeroTabletProps {
   onSelectProduct: (product: typeof CAT_FOOD_PRODUCT | typeof DOG_FOOD_PRODUCT) => void;
@@ -11,22 +13,28 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
   onSelectProduct,
   onExploreProducts,
 }) => {
+  const { scrollY } = useScroll();
+
+  const titleY = useTransform(scrollY, [0, 300], [0, -60]);
+  
+  // High-impact dramatic scroll zoom for tablet pet images
+  const leftPetScale = useTransform(scrollY, [0, 300], [1.0, 1.80]);
+  const leftPetY = useTransform(scrollY, [0, 300], [0, -50]);
+
+  const centerPetScale = useTransform(scrollY, [0, 300], [1.0, 2.05]);
+  const centerPetY = useTransform(scrollY, [0, 300], [0, -75]);
+
+  const rightPetScale = useTransform(scrollY, [0, 300], [1.0, 1.80]);
+  const rightPetY = useTransform(scrollY, [0, 300], [0, -50]);
+
   return (
     <div className="hidden md:flex lg:hidden flex-col justify-between relative w-full h-full flex-1 overflow-hidden select-none">
       {/* Text layer (z-5) */}
-      <div className="relative z-5 w-full flex flex-col items-center px-6 pt-4">
-        <h1 className="font-serif-display text-[#1a3d1a] text-4xl md:text-5xl leading-[1.02] tracking-tight text-center max-w-2xl">
-          <div className="block">
-            <span className="inline-block animate-word-pop delay-200 mr-[0.25em]">Premium</span>
-            <span className="inline-block animate-word-pop delay-300">Nutrition for</span>
-          </div>
-          <div className="block mt-1">
-            <span className="inline-block animate-word-pop delay-400 mr-[0.25em]">Healthier,</span>
-            <span className="inline-block animate-word-pop delay-500 mr-[0.25em]">Happier</span>
-            <span className="inline-block animate-word-pop delay-600">Pets</span>
-          </div>
-        </h1>
-      </div>
+      <motion.div style={{ y: titleY }} className="relative z-5 w-full flex flex-col items-center px-6 pt-2 md:pt-4">
+        <div className="animate-heartbeat w-full max-w-2xl">
+          <CurvedTitle />
+        </div>
+      </motion.div>
 
       {/* Left Product Card: Premium Cat Food */}
       <div className="absolute top-[80px] left-3 z-20 w-[140px] animate-slide-in-left delay-600">
@@ -88,14 +96,20 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
         </div>
       </div>
 
-      {/* Bottom 3 Images */}
+      {/* Bottom 3 Images with scroll zoom */}
       <div className="absolute bottom-0 left-0 right-0 z-10 flex items-end justify-center w-full gap-0 pointer-events-none">
         {/* Left Image */}
-        <div className="flex-1 relative flex items-end justify-center animate-photo-reveal delay-800">
-          <img
+        <motion.div
+          initial={{ y: 140, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          className="flex-1 relative flex items-end justify-center"
+        >
+          <motion.img
+            style={{ scale: leftPetScale, y: leftPetY }}
             src={ASSETS.bottomLeftImage}
             alt="Pet with owner"
-            className="w-full max-h-[46vh] object-contain object-bottom block select-none"
+            className="w-full max-h-[46vh] object-contain object-bottom block select-none origin-bottom pointer-events-auto transition-filter hover:brightness-105"
           />
           {/* Overlay Left */}
           <div className="absolute bottom-3 left-3 z-20 animate-fade-up delay-1000 pointer-events-auto">
@@ -116,14 +130,20 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Center Image */}
-        <div className="flex-[1.265] relative flex items-end justify-center animate-photo-reveal delay-600">
-          <img
+        <motion.div
+          initial={{ y: 160, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="flex-[1.265] relative flex items-end justify-center z-10"
+        >
+          <motion.img
+            style={{ scale: centerPetScale, y: centerPetY }}
             src={ASSETS.bottomCenterImage}
             alt="Main pet showpiece"
-            className="w-full max-h-[50vh] object-contain object-bottom block select-none"
+            className="w-full max-h-[50vh] object-contain object-bottom block select-none origin-bottom pointer-events-auto transition-filter hover:brightness-105"
           />
           {/* Overlay Center */}
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-center gap-1.5 animate-fade-up delay-1100 pointer-events-auto w-full px-2">
@@ -138,14 +158,20 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
               <ArrowRight className="w-3 h-3" />
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Image */}
-        <div className="flex-1 relative flex items-end justify-center animate-photo-reveal delay-900">
-          <img
+        <motion.div
+          initial={{ y: 140, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+          className="flex-1 relative flex items-end justify-center"
+        >
+          <motion.img
+            style={{ scale: rightPetScale, y: rightPetY }}
             src={ASSETS.bottomRightImage}
             alt="Cute cat"
-            className="w-full max-h-[46vh] object-contain object-bottom block select-none"
+            className="w-full max-h-[46vh] object-contain object-bottom block select-none origin-bottom pointer-events-auto transition-filter hover:brightness-105"
           />
           {/* Overlay Right */}
           <div className="absolute bottom-3 right-3 z-20 animate-fade-up delay-1200 pointer-events-auto">
@@ -155,9 +181,8 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
               <span className="text-[9px] font-semibold text-gray-700">Rating</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
 };
-

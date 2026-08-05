@@ -29,9 +29,7 @@ export const PreloaderGate: React.FC<PreloaderGateProps> = ({ onLoaded }) => {
 
   const handleEnter = () => {
     setIsExiting(true);
-    setTimeout(() => {
-      onLoaded();
-    }, 800);
+    onLoaded();
   };
 
   return (

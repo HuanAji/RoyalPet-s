@@ -113,6 +113,33 @@ body {
   }
 }
 
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  12% {
+    transform: scale(1.09);
+  }
+  24% {
+    transform: scale(0.97);
+  }
+  36% {
+    transform: scale(1.06);
+  }
+  48% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.8s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
 @keyframes photo-reveal {
   0% {
     transform: translateY(80px) scale(1.02);

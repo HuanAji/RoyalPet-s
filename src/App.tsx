@@ -104,90 +104,97 @@ export default function App() {
   return (
     <div className="min-h-screen w-full flex flex-col bg-[#EFFDF0] text-[#1a3d1a] relative font-sans overflow-x-hidden">
       {/* 1. Preloader Interactive Gate */}
-      {!hasLoadedGate && (
+      {!hasLoadedGate ? (
         <PreloaderGate onLoaded={() => setHasLoadedGate(true)} />
+      ) : (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="flex-1 flex flex-col w-full"
+        >
+          {/* Scroll Progress Bar */}
+          <motion.div
+            className="fixed top-0 left-0 right-0 h-1 bg-[#10B981] z-50 origin-left"
+            style={{ scaleX }}
+          />
+
+          {/* Sticky Header */}
+          <div className="sticky top-0 z-40 bg-[#EFFDF0]/90 backdrop-blur-md transition-all border-b border-[#1a3d1a]/5">
+            <Header
+              favoritesCount={favoritesCount}
+              cartCount={cartCount}
+              onOpenSearch={() => setIsSearchOpen(true)}
+              onOpenFavorites={() => setIsFavoritesOpen(true)}
+              onOpenCart={() => setIsCartOpen(true)}
+              onOpenAccount={() => setIsAccountOpen(true)}
+              activeTab={activeTab}
+              setActiveTab={handleNavClick}
+            />
+          </div>
+
+          {/* Main Content Flow */}
+          <main className="flex-1 flex flex-col w-full">
+            {/* 1. Hero Viewport Area */}
+            <section className="relative w-full h-[calc(100vh-64px)] min-h-[580px] max-h-[920px] overflow-hidden flex flex-col justify-between">
+              {/* Desktop Hero Layout (lg+) */}
+              <HeroDesktop
+                onSelectProduct={handleOpenProduct}
+                onExploreProducts={() => handleOpenProduct(CAT_FOOD_PRODUCT)}
+              />
+
+              {/* Tablet Hero Layout (md to lg) */}
+              <HeroTablet
+                onSelectProduct={handleOpenProduct}
+                onExploreProducts={() => handleOpenProduct(CAT_FOOD_PRODUCT)}
+              />
+
+              {/* Mobile Hero Layout (< md) */}
+              <HeroMobile
+                onSelectProduct={handleOpenProduct}
+                onExploreProducts={() => handleOpenProduct(CAT_FOOD_PRODUCT)}
+              />
+            </section>
+
+            {/* 2. Partner & Vet Association Logo Marquee */}
+            <LogoMarquee />
+
+            {/* 3. Category Showcase */}
+            <div id="categories-section">
+              <CategoryShowcase onSelectCategory={() => handleOpenProduct(CAT_FOOD_PRODUCT)} />
+            </div>
+
+            {/* 4. Featured Best Sellers Grid */}
+            <div id="shop-section">
+              <FeaturedProducts
+                onSelectProduct={handleOpenProduct}
+                onAddToCart={handleAddToCart}
+              />
+            </div>
+
+            {/* 5. Horizontal Gallery (ON TRACK / OFF TRACK) */}
+            <HorizontalGallery />
+
+            {/* 6. Brand Features */}
+            <div id="features-section">
+              <BrandFeatures />
+            </div>
+
+            {/* 7. Pet Nutrition & Calorie Calculator */}
+            <div id="calculator-section">
+              <PetNutritionCalculator onSelectProduct={handleOpenProduct} />
+            </div>
+
+            {/* 8. Customer Stories & Reviews */}
+            <div id="reviews-section">
+              <CustomerReviews />
+            </div>
+
+            {/* 9. Newsletter & Footer */}
+            <FooterSection />
+          </main>
+        </motion.div>
       )}
-
-      {/* Scroll Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-[#10B981] z-50 origin-left"
-        style={{ scaleX }}
-      />
-
-      {/* Sticky Header */}
-      <div className="sticky top-0 z-40 bg-[#EFFDF0]/90 backdrop-blur-md transition-all border-b border-[#1a3d1a]/5">
-        <Header
-          favoritesCount={favoritesCount}
-          cartCount={cartCount}
-          onOpenSearch={() => setIsSearchOpen(true)}
-          onOpenFavorites={() => setIsFavoritesOpen(true)}
-          onOpenCart={() => setIsCartOpen(true)}
-          onOpenAccount={() => setIsAccountOpen(true)}
-          activeTab={activeTab}
-          setActiveTab={handleNavClick}
-        />
-      </div>
-
-      {/* Main Content Flow */}
-      <main className="flex-1 flex flex-col w-full">
-        {/* 1. Hero Viewport Area */}
-        <section className="relative w-full h-[calc(100vh-64px)] min-h-[580px] max-h-[920px] overflow-hidden flex flex-col justify-between">
-          {/* Desktop Hero Layout (lg+) */}
-          <HeroDesktop
-            onSelectProduct={handleOpenProduct}
-            onExploreProducts={() => handleOpenProduct(CAT_FOOD_PRODUCT)}
-          />
-
-          {/* Tablet Hero Layout (md to lg) */}
-          <HeroTablet
-            onSelectProduct={handleOpenProduct}
-            onExploreProducts={() => handleOpenProduct(CAT_FOOD_PRODUCT)}
-          />
-
-          {/* Mobile Hero Layout (< md) */}
-          <HeroMobile
-            onSelectProduct={handleOpenProduct}
-            onExploreProducts={() => handleOpenProduct(CAT_FOOD_PRODUCT)}
-          />
-        </section>
-
-        {/* 2. Partner & Vet Association Logo Marquee */}
-        <LogoMarquee />
-
-        {/* 3. Category Showcase */}
-        <div id="categories-section">
-          <CategoryShowcase onSelectCategory={() => handleOpenProduct(CAT_FOOD_PRODUCT)} />
-        </div>
-
-        {/* 4. Featured Best Sellers Grid */}
-        <div id="shop-section">
-          <FeaturedProducts
-            onSelectProduct={handleOpenProduct}
-            onAddToCart={handleAddToCart}
-          />
-        </div>
-
-        {/* 5. Horizontal Gallery (ON TRACK / OFF TRACK) */}
-        <HorizontalGallery />
-
-        {/* 6. Brand Features */}
-        <div id="features-section">
-          <BrandFeatures />
-        </div>
-
-        {/* 7. Pet Nutrition & Calorie Calculator */}
-        <div id="calculator-section">
-          <PetNutritionCalculator onSelectProduct={handleOpenProduct} />
-        </div>
-
-        {/* 8. Customer Stories & Reviews */}
-        <div id="reviews-section">
-          <CustomerReviews />
-        </div>
-
-        {/* 9. Newsletter & Footer */}
-        <FooterSection />
-      </main>
 
       {/* Floating Back To Top Button */}
       <AnimatePresence>

@@ -1,6 +1,8 @@
 import React from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, ArrowRight, Star, Plus } from 'lucide-react';
 import { ASSETS, CAT_FOOD_PRODUCT, DOG_FOOD_PRODUCT } from '../constants';
+import { CurvedTitle } from './CurvedTitle';
 
 interface HeroMobileProps {
   onSelectProduct: (product: typeof CAT_FOOD_PRODUCT | typeof DOG_FOOD_PRODUCT) => void;
@@ -11,17 +13,19 @@ export const HeroMobile: React.FC<HeroMobileProps> = ({
   onSelectProduct,
   onExploreProducts,
 }) => {
+  const { scrollY } = useScroll();
+
+  const leftPetScale = useTransform(scrollY, [0, 250], [1.0, 1.50]);
+  const centerPetScale = useTransform(scrollY, [0, 250], [1.0, 1.70]);
+  const rightPetScale = useTransform(scrollY, [0, 250], [1.0, 1.50]);
+
   return (
-    <div className="flex md:hidden flex-col justify-between relative w-full h-full flex-1 overflow-hidden select-none px-4 pt-2 pb-0">
+    <div className="flex md:hidden flex-col justify-between relative w-full h-full flex-1 overflow-hidden select-none px-4 pt-4 pb-0">
       {/* Top Header & Title */}
-      <div className="flex flex-col items-center text-center z-20 animate-fade-in delay-200 shrink-0">
-        <h1 className="font-serif-display text-[#1a3d1a] text-[26px] sm:text-[30px] leading-[1.05] tracking-tight">
-          <span className="inline-block animate-word-pop delay-200">Premium </span>
-          <span className="inline-block animate-word-pop delay-300">Nutrition for </span>
-          <span className="inline-block animate-word-pop delay-400">Healthier, </span>
-          <span className="inline-block animate-word-pop delay-500">Happier </span>
-          <span className="inline-block animate-word-pop delay-600">Pets</span>
-        </h1>
+      <div className="flex flex-col items-center text-center z-20 animate-fade-in delay-200 shrink-0 w-full">
+        <div className="animate-heartbeat w-full max-w-[340px]">
+          <CurvedTitle />
+        </div>
         <p className="text-gray-600 text-[11px] mt-1 font-medium max-w-[280px]">
           High quality cat and dog food formulated for optimal pet health
         </p>
@@ -120,31 +124,38 @@ export const HeroMobile: React.FC<HeroMobileProps> = ({
         </div>
       </div>
 
-      {/* Bottom 3 Images Flex */}
-      <div className="flex items-end justify-center w-full gap-0 z-10 shrink-0 pointer-events-none mt-auto -mx-4 w-[calc(100%+2rem)] animate-photo-reveal delay-900">
+      {/* Bottom 3 Images Flex with Scroll Zoom and Entrance Reveal */}
+      <motion.div
+        initial={{ y: 80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+        className="flex items-end justify-center w-full gap-0 z-10 shrink-0 pointer-events-none mt-auto -mx-4 w-[calc(100%+2rem)] overflow-hidden"
+      >
         <div className="flex-1 max-h-[18vh] overflow-hidden">
-          <img
+          <motion.img
+            style={{ scale: leftPetScale }}
             src={ASSETS.bottomLeftImage}
             alt="Pet with owner"
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-top origin-bottom"
           />
         </div>
         <div className="flex-[1.265] max-h-[22vh] overflow-hidden">
-          <img
+          <motion.img
+            style={{ scale: centerPetScale }}
             src={ASSETS.bottomCenterImage}
             alt="Main pet showpiece"
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-top origin-bottom"
           />
         </div>
         <div className="flex-1 max-h-[18vh] overflow-hidden">
-          <img
+          <motion.img
+            style={{ scale: rightPetScale }}
             src={ASSETS.bottomRightImage}
             alt="Playful cat"
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-top origin-bottom"
           />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
-
