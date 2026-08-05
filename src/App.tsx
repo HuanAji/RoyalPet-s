@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useSpring, AnimatePresence } from 'motion/react';
+import { ArrowUp } from 'lucide-react';
+import { PreloaderGate } from './components/PreloaderGate';
+import { LogoMarquee } from './components/LogoMarquee';
+import { HorizontalGallery } from './components/HorizontalGallery';
 import { Header } from './components/Header';
 import { HeroDesktop } from './components/HeroDesktop';
 import { HeroTablet } from './components/HeroTablet';
@@ -21,10 +26,27 @@ import {
 import { CAT_FOOD_PRODUCT, DOG_FOOD_PRODUCT } from './constants';
 
 export default function App() {
+  const [hasLoadedGate, setHasLoadedGate] = useState(false);
   const [activeTab, setActiveTab] = useState('Home');
   const [favoritesCount, setFavoritesCount] = useState(4);
   const [cartCount, setCartCount] = useState(1);
   const [isFavoriteCatHouse, setIsFavoriteCatHouse] = useState(true);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  // Scroll progress indicator
+  const { scrollYProgress, scrollY } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  useEffect(() => {
+    const unsubscribe = scrollY.on('change', (latest) => {
+      setShowBackToTop(latest > 350);
+    });
+    return () => unsubscribe();
+  }, [scrollY]);
 
   // Modals / Drawers state
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
@@ -56,6 +78,10 @@ export default function App() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleNavClick = (tab: string) => {
     setActiveTab(tab);
     if (tab === 'Home') {
@@ -77,8 +103,19 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full flex flex-col bg-[#EFFDF0] text-[#1a3d1a] relative font-sans overflow-x-hidden">
+      {/* 1. Preloader Interactive Gate */}
+      {!hasLoadedGate && (
+        <PreloaderGate onLoaded={() => setHasLoadedGate(true)} />
+      )}
+
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-[#10B981] z-50 origin-left"
+        style={{ scaleX }}
+      />
+
       {/* Sticky Header */}
-      <div className="sticky top-0 z-40 bg-[#EFFDF0]/90 backdrop-blur-md transition-all">
+      <div className="sticky top-0 z-40 bg-[#EFFDF0]/90 backdrop-blur-md transition-all border-b border-[#1a3d1a]/5">
         <Header
           favoritesCount={favoritesCount}
           cartCount={cartCount}
@@ -114,12 +151,15 @@ export default function App() {
           />
         </section>
 
-        {/* 2. Category Showcase */}
+        {/* 2. Partner & Vet Association Logo Marquee */}
+        <LogoMarquee />
+
+        {/* 3. Category Showcase */}
         <div id="categories-section">
           <CategoryShowcase onSelectCategory={() => handleOpenProduct(CAT_FOOD_PRODUCT)} />
         </div>
 
-        {/* 3. Featured Best Sellers Grid */}
+        {/* 4. Featured Best Sellers Grid */}
         <div id="shop-section">
           <FeaturedProducts
             onSelectProduct={handleOpenProduct}
@@ -127,24 +167,44 @@ export default function App() {
           />
         </div>
 
-        {/* 4. Brand Features */}
+        {/* 5. Horizontal Gallery (ON TRACK / OFF TRACK) */}
+        <HorizontalGallery />
+
+        {/* 6. Brand Features */}
         <div id="features-section">
           <BrandFeatures />
         </div>
 
-        {/* 5. Pet Nutrition & Calorie Calculator */}
+        {/* 7. Pet Nutrition & Calorie Calculator */}
         <div id="calculator-section">
           <PetNutritionCalculator onSelectProduct={handleOpenProduct} />
         </div>
 
-        {/* 6. Customer Stories & Reviews */}
+        {/* 8. Customer Stories & Reviews */}
         <div id="reviews-section">
           <CustomerReviews />
         </div>
 
-        {/* 7. Newsletter & Footer */}
+        {/* 9. Newsletter & Footer */}
         <FooterSection />
       </main>
+
+      {/* Floating Back To Top Button */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.5, y: 20 }}
+            transition={{ duration: 0.3 }}
+            onClick={scrollToTop}
+            aria-label="Back to top"
+            className="fixed bottom-6 right-6 z-40 bg-[#1a3d1a] hover:bg-[#2a5a2a] text-white p-3.5 rounded-full shadow-2xl border border-white/20 transition-transform duration-300 hover:scale-110 active:scale-95 flex items-center justify-center cursor-pointer"
+          >
+            <ArrowUp className="w-5 h-5" />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Interactive Modals & Drawers */}
       <ProductModal
@@ -185,5 +245,6 @@ export default function App() {
     </div>
   );
 }
+
 
 

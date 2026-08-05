@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, ArrowRight, Star, Plus } from 'lucide-react';
 import { ASSETS, CAT_FOOD_PRODUCT, DOG_FOOD_PRODUCT } from '../constants';
 
@@ -11,10 +12,28 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
   onSelectProduct,
   onExploreProducts,
 }) => {
+  const { scrollY } = useScroll();
+
+  // Scroll parallax transformations (Lando Norris style smooth parallax depth)
+  const titleY = useTransform(scrollY, [0, 400], [0, -60]);
+  const titleOpacity = useTransform(scrollY, [0, 350], [1, 0.2]);
+  
+  const leftCardX = useTransform(scrollY, [0, 400], [0, -40]);
+  const leftCardY = useTransform(scrollY, [0, 400], [0, -20]);
+
+  const rightCardX = useTransform(scrollY, [0, 400], [0, 40]);
+  const rightCardY = useTransform(scrollY, [0, 400], [0, -20]);
+
+  const petsScale = useTransform(scrollY, [0, 400], [1, 1.05]);
+  const petsY = useTransform(scrollY, [0, 400], [0, 15]);
+
   return (
     <div className="hidden lg:flex flex-col justify-between relative w-full h-full flex-1 overflow-hidden select-none">
-      {/* Text layer (z-5) */}
-      <div className="relative z-5 w-full flex flex-col items-center px-12 pt-6 lg:pt-10">
+      {/* Text layer (z-5) with parallax scroll */}
+      <motion.div
+        style={{ y: titleY, opacity: titleOpacity }}
+        className="relative z-5 w-full flex flex-col items-center px-12 pt-6 lg:pt-10"
+      >
         <h1 className="font-serif-display text-[#1a3d1a] text-[clamp(38px,4.6vw,72px)] leading-[1.0] tracking-tight text-center max-w-4xl">
           <div className="block">
             <span className="inline-block animate-word-pop delay-200 mr-[0.25em]">Premium</span>
@@ -26,13 +45,16 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             <span className="inline-block animate-word-pop delay-600">Pets</span>
           </div>
         </h1>
-      </div>
+      </motion.div>
 
-      {/* Left Product Card: Premium Cat Food */}
-      <div className="absolute top-[32px] left-6 xl:left-12 z-20 w-[clamp(130px,9vw,170px)] animate-slide-in-left delay-600">
+      {/* Left Product Card with horizontal scroll drift */}
+      <motion.div
+        style={{ x: leftCardX, y: leftCardY }}
+        className="absolute top-[32px] left-6 xl:left-12 z-20 w-[clamp(130px,9vw,170px)] animate-slide-in-left delay-600"
+      >
         <div 
           onClick={() => onSelectProduct(CAT_FOOD_PRODUCT)}
-          className="group cursor-pointer block bg-white/70 backdrop-blur-md p-2 rounded-2xl border border-white/80 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+          className="group cursor-pointer block bg-white/70 backdrop-blur-md p-2 rounded-2xl border border-white/80 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
         >
           <div className="aspect-square rounded-xl overflow-hidden relative bg-white shadow-inner">
             <img
@@ -56,13 +78,16 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Right Product Card: Nutritious Dog Food */}
-      <div className="absolute top-[32px] right-6 xl:right-12 z-20 w-[clamp(130px,9vw,170px)] animate-slide-in-right delay-700">
+      {/* Right Product Card with horizontal scroll drift */}
+      <motion.div
+        style={{ x: rightCardX, y: rightCardY }}
+        className="absolute top-[32px] right-6 xl:right-12 z-20 w-[clamp(130px,9vw,170px)] animate-slide-in-right delay-700"
+      >
         <div 
           onClick={() => onSelectProduct(DOG_FOOD_PRODUCT)}
-          className="group cursor-pointer block bg-white/70 backdrop-blur-md p-2 rounded-2xl border border-white/80 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+          className="group cursor-pointer block bg-white/70 backdrop-blur-md p-2 rounded-2xl border border-white/80 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
         >
           <div className="aspect-square rounded-xl overflow-hidden relative bg-white shadow-inner">
             <img
@@ -86,10 +111,13 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Bottom 3 Images */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 flex items-end justify-center w-full gap-0 pointer-events-none">
+      {/* Bottom 3 Images with scale parallax */}
+      <motion.div
+        style={{ scale: petsScale, y: petsY }}
+        className="absolute bottom-0 left-0 right-0 z-10 flex items-end justify-center w-full gap-0 pointer-events-none origin-bottom"
+      >
         {/* Left Image */}
         <div className="flex-1 relative flex items-end justify-center animate-photo-reveal delay-800">
           <img
@@ -158,8 +186,9 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
+
 
