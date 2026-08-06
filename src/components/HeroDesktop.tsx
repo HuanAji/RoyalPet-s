@@ -64,16 +64,16 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             />
             <button
               aria-label="View product"
-              className="absolute bottom-1.5 right-1.5 bg-[#1a3d1a] text-white p-1.5 rounded-full hover:bg-[#2a5a2a] transition-all duration-300 shadow-md group-hover:scale-110 flex items-center justify-center"
+              className="absolute bottom-1.5 right-1.5 bg-[#31b1ba] text-white p-1.5 rounded-full hover:bg-[#22828a] transition-all duration-300 shadow-md group-hover:scale-110 flex items-center justify-center"
             >
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#FFC72C]" />
             </button>
           </div>
           <div className="mt-1.5 px-0.5">
             <p className="text-gray-800 font-semibold text-xs leading-tight">
               {CAT_FOOD_PRODUCT.name}
             </p>
-            <p className="text-[#1a3d1a] font-bold text-xs mt-0.5">
+            <p className="text-[#31b1ba] font-bold text-xs mt-0.5">
               {CAT_FOOD_PRODUCT.price}
             </p>
           </div>
@@ -97,16 +97,16 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             />
             <button
               aria-label="View product"
-              className="absolute bottom-1.5 right-1.5 bg-[#1a3d1a] text-white p-1.5 rounded-full hover:bg-[#2a5a2a] transition-all duration-300 shadow-md group-hover:scale-110 flex items-center justify-center"
+              className="absolute bottom-1.5 right-1.5 bg-[#31b1ba] text-white p-1.5 rounded-full hover:bg-[#22828a] transition-all duration-300 shadow-md group-hover:scale-110 flex items-center justify-center"
             >
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#FFC72C]" />
             </button>
           </div>
           <div className="mt-1.5 px-0.5">
             <p className="text-gray-800 font-semibold text-xs leading-tight">
               {DOG_FOOD_PRODUCT.name}
             </p>
-            <p className="text-[#1a3d1a] font-bold text-xs mt-0.5">
+            <p className="text-[#31b1ba] font-bold text-xs mt-0.5">
               {DOG_FOOD_PRODUCT.price}
             </p>
           </div>
@@ -138,12 +138,12 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
                   alt="Customer"
                   className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-xs"
                 />
-                <div className="w-7 h-7 rounded-full bg-[#1a3d1a] border-2 border-white text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                <div className="w-7 h-7 rounded-full bg-[#31b1ba] border-2 border-white text-[#FFC72C] flex items-center justify-center font-bold text-xs shadow-xs">
                   <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-xs font-bold text-[#1a3d1a] leading-none">98K+</span>
+                <span className="text-xs font-bold text-[#31b1ba] leading-none">98K+</span>
                 <span className="text-[10px] text-gray-600 font-medium mt-0.5">Happy pet owners</span>
               </div>
             </div>
@@ -170,7 +170,7 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             </h2>
             <button
               onClick={onExploreProducts}
-              className="bg-[#E86A10] hover:bg-[#d45e0d] text-white px-5 py-2 rounded-full font-medium text-xs lg:text-sm flex items-center gap-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              className="bg-[#FF6B00] hover:bg-[#e05e00] text-white px-5 py-2 rounded-full font-semibold text-xs lg:text-sm flex items-center gap-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
               <span>Explore Products</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -194,9 +194,9 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
           {/* Overlay Right Badge */}
           <div className="absolute bottom-3 lg:bottom-5 right-6 lg:right-10 z-20 animate-fade-up delay-1200 pointer-events-auto">
             <div className="bg-white/90 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-lg border border-white/50 flex items-center gap-2 transition-transform hover:scale-105">
-              <span className="text-base font-bold text-[#1a3d1a] leading-none">4.6</span>
+              <span className="text-base font-bold text-[#31b1ba] leading-none">4.6</span>
               <div className="flex items-center gap-0.5">
-                <Star className="w-3.5 h-3.5 text-[#E86A10] fill-[#E86A10]" />
+                <Star className="w-3.5 h-3.5 text-[#FFC72C] fill-[#FFC72C]" />
               </div>
               <span className="text-[11px] font-semibold text-gray-700">Rating</span>
             </div>

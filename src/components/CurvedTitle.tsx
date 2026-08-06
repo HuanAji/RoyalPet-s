@@ -21,7 +21,7 @@ export const CurvedTitle: React.FC<CurvedTitleProps> = ({ className = '' }) => {
 
         {/* Top Line: Premium Nutrition for */}
         <text
-          fill="#1a3d1a"
+          fill="#31b1ba"
           fontWeight="400"
           className="text-[64px] tracking-tight"
         >
@@ -36,7 +36,7 @@ export const CurvedTitle: React.FC<CurvedTitleProps> = ({ className = '' }) => {
 
         {/* Bottom Line: Healthier, Happier Pets */}
         <text
-          fill="#1a3d1a"
+          fill="#31b1ba"
           fontWeight="400"
           className="text-[68px] tracking-tight"
         >

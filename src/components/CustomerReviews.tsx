@@ -71,7 +71,7 @@ export const CustomerReviews: React.FC = () => {
   };
 
   return (
-    <section className="w-full py-20 sm:py-28 bg-[#FAFDFB] text-[#1a3d1a] relative overflow-hidden select-none border-t border-gray-200/50">
+    <section className="w-full py-20 sm:py-28 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden select-none border-t border-gray-200/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 mb-10 sm:mb-14">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <motion.div
@@ -80,11 +80,11 @@ export const CustomerReviews: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFFDF0] text-[#1a3d1a] text-xs font-semibold mb-3 border border-[#1a3d1a]/10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] text-[#31b1ba] text-xs font-semibold mb-3 border border-[#FFC72C]/40">
               <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 animate-pulse" />
               <span>Community Stories</span>
             </div>
-            <h2 className="font-serif-display text-3xl sm:text-5xl md:text-6xl text-[#1a3d1a] tracking-tight">
+            <h2 className="font-serif-display text-3xl sm:text-5xl md:text-6xl text-[#31b1ba] tracking-tight">
               Loved by 98,000+ Royal Pets
             </h2>
             <p className="text-gray-600 text-sm sm:text-base mt-2 max-w-lg leading-relaxed">
@@ -106,14 +106,14 @@ export const CustomerReviews: React.FC = () => {
               <button
                 onClick={() => handleManualScroll('left')}
                 aria-label="Scroll left"
-                className="w-10 h-10 rounded-full bg-white border border-gray-200 text-[#1a3d1a] hover:bg-[#1a3d1a] hover:text-[#B8FF52] transition-colors flex items-center justify-center shadow-xs cursor-pointer"
+                className="w-10 h-10 rounded-full bg-white border border-gray-200 text-[#31b1ba] hover:bg-[#31b1ba] hover:text-[#FFC72C] transition-colors flex items-center justify-center shadow-xs cursor-pointer"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={() => handleManualScroll('right')}
                 aria-label="Scroll right"
-                className="w-10 h-10 rounded-full bg-white border border-gray-200 text-[#1a3d1a] hover:bg-[#1a3d1a] hover:text-[#B8FF52] transition-colors flex items-center justify-center shadow-xs cursor-pointer"
+                className="w-10 h-10 rounded-full bg-white border border-gray-200 text-[#31b1ba] hover:bg-[#31b1ba] hover:text-[#FFC72C] transition-colors flex items-center justify-center shadow-xs cursor-pointer"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -164,7 +164,7 @@ export const CustomerReviews: React.FC = () => {
                   </div>
                 </div>
 
-                <Quote className="w-7 h-7 text-[#1a3d1a]/20 mb-2" />
+                <Quote className="w-7 h-7 text-[#31b1ba]/20 mb-2" />
                 <p className="text-xs sm:text-sm text-gray-700 leading-relaxed italic mb-6">
                   "{rev.comment}"
                 </p>
@@ -174,12 +174,12 @@ export const CustomerReviews: React.FC = () => {
                 <img
                   src={rev.avatar}
                   alt={rev.name}
-                  className="w-10 h-10 rounded-full object-cover border-2 border-[#1a3d1a]/20"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-[#31b1ba]/20"
                 />
                 <div>
-                  <h4 className="font-semibold text-sm text-[#1a3d1a] flex items-center gap-1.5">
+                  <h4 className="font-semibold text-sm text-[#31b1ba] flex items-center gap-1.5">
                     {rev.name}
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#FF6B00]" />
                   </h4>
                   <span className="text-xs text-gray-400">Verified Royal Parent</span>
                 </div>

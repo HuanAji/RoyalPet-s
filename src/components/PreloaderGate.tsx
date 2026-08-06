@@ -39,18 +39,18 @@ export const PreloaderGate: React.FC<PreloaderGateProps> = ({ onLoaded }) => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-50 bg-[#0F260F] text-white flex flex-col justify-between p-6 sm:p-12 overflow-hidden select-none font-sans"
+          className="fixed inset-0 z-50 bg-[#22828a] text-white flex flex-col justify-between p-6 sm:p-12 overflow-hidden select-none font-sans"
         >
           {/* Top Bar */}
           <div className="flex items-center justify-between w-full max-w-7xl mx-auto z-10">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#B8FF52] animate-pulse" />
-              <span className="text-xs tracking-widest font-mono uppercase text-[#B8FF52]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFC72C] animate-pulse" />
+              <span className="text-xs tracking-widest font-mono uppercase text-[#FFC72C]">
                 ROYALPET'S® ARCHIVE 2026
               </span>
             </div>
-            <div className="text-xs font-mono text-emerald-300/60 uppercase tracking-widest">
-              [ LANDONORRIS INSP ]
+            <div className="text-xs font-mono text-amber-200/60 uppercase tracking-widest">
+              [ PET KINGDOM EDITION ]
             </div>
           </div>
 
@@ -60,17 +60,17 @@ export const PreloaderGate: React.FC<PreloaderGateProps> = ({ onLoaded }) => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B8FF52]/10 border border-[#B8FF52]/30 text-[#B8FF52] text-xs font-semibold uppercase tracking-wider mb-6"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFC72C]/10 border border-[#FFC72C]/30 text-[#FFC72C] text-xs font-semibold uppercase tracking-wider mb-6"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Interactive Preloader Gate</span>
             </motion.div>
 
             <h1 className="font-serif-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-white leading-none mb-6">
-              LOAD <span className="text-[#B8FF52] italic font-sans font-black">ROYAL</span> EXPERIENCE
+              LOAD <span className="text-[#FFC72C] italic font-sans font-black">ROYAL</span> EXPERIENCE
             </h1>
 
-            <p className="text-emerald-100/70 text-sm sm:text-base max-w-lg leading-relaxed mb-8">
+            <p className="text-blue-100/70 text-sm sm:text-base max-w-lg leading-relaxed mb-8">
               Experience the next generation of organic pet nutrition, interactive calculators, and smooth 60fps animations.
             </p>
 
@@ -78,13 +78,13 @@ export const PreloaderGate: React.FC<PreloaderGateProps> = ({ onLoaded }) => {
             <div className="relative min-h-[64px] flex items-center justify-center">
               {!isReady ? (
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-64 sm:w-80 h-2 bg-emerald-950 rounded-full overflow-hidden border border-white/10">
+                  <div className="w-64 sm:w-80 h-2 bg-blue-950 rounded-full overflow-hidden border border-white/10">
                     <motion.div
-                      className="h-full bg-gradient-to-r from-[#10B981] to-[#B8FF52]"
+                      className="h-full bg-gradient-to-r from-[#FF6B00] to-[#FFC72C]"
                       style={{ width: `${progress}%` }}
                     />
                   </div>
-                  <span className="font-mono text-xs text-[#B8FF52] tracking-widest">
+                  <span className="font-mono text-xs text-[#FFC72C] tracking-widest">
                     INITIALIZING EXPERIENCE ... {progress}%
                   </span>
                 </div>
@@ -95,7 +95,7 @@ export const PreloaderGate: React.FC<PreloaderGateProps> = ({ onLoaded }) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleEnter}
-                  className="group relative inline-flex items-center gap-3 bg-[#B8FF52] hover:bg-[#a2e63e] text-[#0F260F] font-bold px-8 py-4 rounded-full text-base sm:text-lg shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden"
+                  className="group relative inline-flex items-center gap-3 bg-[#FFC72C] hover:bg-[#f5b813] text-[#22828a] font-bold px-8 py-4 rounded-full text-base sm:text-lg shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <Play className="w-5 h-5 fill-current" />
@@ -108,13 +108,13 @@ export const PreloaderGate: React.FC<PreloaderGateProps> = ({ onLoaded }) => {
           </div>
 
           {/* Bottom Info Bar */}
-          <div className="flex flex-col sm:flex-row items-center justify-between w-full max-w-7xl mx-auto z-10 text-xs font-mono text-emerald-200/50 gap-2 border-t border-white/10 pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between w-full max-w-7xl mx-auto z-10 text-xs font-mono text-blue-200/50 gap-2 border-t border-white/10 pt-4">
             <span>© 2026 ROYALPET'S ALL RIGHTS RESERVED</span>
-            <span className="text-[#B8FF52]">PRESS / CLICK TO UNLOCK FULL INTERACTIVE CANVAS</span>
+            <span className="text-[#FFC72C]">PRESS / CLICK TO UNLOCK FULL INTERACTIVE CANVAS</span>
           </div>
 
           {/* Background Graphic Lines */}
-          <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#B8FF52_1px,transparent_1px)] [background-size:24px_24px]" />
+          <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#FFC72C_1px,transparent_1px)] [background-size:24px_24px]" />
         </motion.div>
       )}
     </AnimatePresence>

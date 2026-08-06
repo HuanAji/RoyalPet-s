@@ -19,7 +19,7 @@ export const FooterSection: React.FC = () => {
   };
 
   return (
-    <footer className="w-full bg-[#132d13] text-white pt-16 sm:pt-20 pb-8 px-4 sm:px-8 md:px-12 relative overflow-hidden">
+    <footer className="w-full bg-[#22828a] text-white pt-16 sm:pt-20 pb-8 px-4 sm:px-8 md:px-12 relative overflow-hidden">
       {/* Newsletter Banner */}
       <div className="max-w-6xl mx-auto mb-16">
         <motion.div
@@ -27,19 +27,19 @@ export const FooterSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-[#1a3d1a] rounded-3xl p-8 sm:p-12 border border-white/10 shadow-2xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8"
+          className="bg-[#31b1ba] rounded-3xl p-8 sm:p-12 border border-white/10 shadow-2xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8"
         >
           {/* Subtle Glow */}
-          <div className="absolute -right-20 -top-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -right-20 -top-20 w-80 h-80 bg-[#FFC72C]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="max-w-xl">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-300 bg-white/10 px-3 py-1 rounded-full inline-block mb-3 border border-white/10">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#FFC72C] bg-white/10 px-3 py-1 rounded-full inline-block mb-3 border border-white/10">
               Join the Royal Club
             </span>
             <h3 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
               Get 15% Off Your First Order
             </h3>
-            <p className="text-emerald-100/70 text-xs sm:text-sm mt-2 leading-relaxed">
+            <p className="text-blue-100/70 text-xs sm:text-sm mt-2 leading-relaxed">
               Subscribe to receive exclusive nutrition tips, new product launches, and secret VIP discounts directly to your inbox.
             </p>
           </div>
@@ -47,23 +47,23 @@ export const FooterSection: React.FC = () => {
           <form onSubmit={handleSubscribe} className="w-full md:w-auto min-w-[300px]">
             <div className="flex flex-col sm:flex-row gap-2.5">
               <div className="relative flex-1">
-                <Mail className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-emerald-200/60" />
+                <Mail className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-blue-200/60" />
                 <input
                   type="email"
                   required
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-emerald-200/50 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/50"
+                  className="w-full pl-11 pr-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-blue-200/50 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#FFC72C]/50"
                 />
               </div>
               <button
                 type="submit"
-                className="bg-[#EFFDF0] hover:bg-white text-[#1a3d1a] font-bold text-xs sm:text-sm px-6 py-3 rounded-full transition-all duration-300 shadow-md hover:scale-105 shrink-0 flex items-center justify-center gap-2 cursor-pointer"
+                className="bg-[#FF6B00] hover:bg-[#E05E00] text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-full transition-all duration-300 shadow-md hover:scale-105 shrink-0 flex items-center justify-center gap-2 cursor-pointer"
               >
                 {subscribed ? (
                   <>
-                    <Check className="w-4 h-4 text-emerald-600" />
+                    <Check className="w-4 h-4 text-white" />
                     <span>Subscribed!</span>
                   </>
                 ) : (
@@ -79,14 +79,14 @@ export const FooterSection: React.FC = () => {
       </div>
 
       {/* Main Footer Links */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10 text-xs sm:text-sm text-emerald-100/70">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10 text-xs sm:text-sm text-blue-100/70">
         {/* Brand Info */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center gap-2.5">
             <svg
               viewBox="0 0 100 100"
               fill="currentColor"
-              className="h-8 w-8 text-emerald-300 shrink-0"
+              className="h-8 w-8 text-[#FFC72C] shrink-0"
               xmlns="http://www.w3.org/2000/svg"
             >
               <ellipse cx="20" cy="28" rx="8" ry="14" transform="rotate(-26 20 28)" />
@@ -105,7 +105,7 @@ export const FooterSection: React.FC = () => {
               RoyalPet's
             </span>
           </div>
-          <p className="max-w-sm leading-relaxed text-emerald-100/60">
+          <p className="max-w-sm leading-relaxed text-blue-100/60">
             Premium, organic pet nutrition formulated by expert veterinary scientists. Delivering healthier, happier lives for your royalty companions.
           </p>
           <div className="flex items-center gap-3 pt-2">
@@ -159,7 +159,7 @@ export const FooterSection: React.FC = () => {
       </div>
 
       {/* Copyright */}
-      <div className="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-emerald-100/50">
+      <div className="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-blue-100/50">
         <p>© {new Date().getFullYear()} RoyalPet's Indonesia. All rights reserved.</p>
         <p className="flex items-center gap-1">
           Crafted with <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" /> for healthy pets everywhere.

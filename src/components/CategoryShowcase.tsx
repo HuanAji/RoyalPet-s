@@ -14,7 +14,7 @@ const CATEGORIES = [
     tag: 'Popular',
     image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600',
     description: 'Grain-free kibble, salmon pastes, scratching posts & cozy cat beds.',
-    lineColor: 'bg-[#f76334]',
+    lineColor: 'bg-[#FF6B00]',
   },
   {
     id: 'dogs',
@@ -23,7 +23,7 @@ const CATEGORIES = [
     tag: 'Top Rated',
     image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600',
     description: 'High-protein beef & chicken feeds, dental chews & durable toys.',
-    lineColor: 'bg-[#e91e63]',
+    lineColor: 'bg-[#31b1ba]',
   },
   {
     id: 'health',
@@ -32,7 +32,7 @@ const CATEGORIES = [
     tag: 'Vet Approved',
     image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600',
     description: 'Omega-3 oils, joint health care, probiotics & calming treats.',
-    lineColor: 'bg-[#eab308]',
+    lineColor: 'bg-[#FFC72C]',
   },
   {
     id: 'grooming',
@@ -41,7 +41,7 @@ const CATEGORIES = [
     tag: 'New Collection',
     image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=600',
     description: 'Hypoallergenic shampoos, deshedding brushes & paw balms.',
-    lineColor: 'bg-[#10b981]',
+    lineColor: 'bg-[#00A3AD]',
   },
   {
     id: 'treats',
@@ -50,7 +50,7 @@ const CATEGORIES = [
     tag: 'Best Value',
     image: 'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600',
     description: 'Handcrafted organic jerky, catnip toys & royal leather collars.',
-    lineColor: 'bg-[#3b82f6]',
+    lineColor: 'bg-[#E05E00]',
   },
 ];
 
@@ -61,10 +61,10 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
   const activeIndex = hoveredIndex !== null ? hoveredIndex : 2;
 
   return (
-    <section className="w-full py-16 sm:py-24 px-4 sm:px-8 md:px-12 bg-white text-[#1a3d1a] relative overflow-hidden">
+    <section className="w-full py-16 sm:py-24 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden">
       {/* Decorative background glow */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#EFFDF0] rounded-full blur-3xl pointer-events-none opacity-60 -mr-20 -mt-20" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FDF6E2] rounded-full blur-3xl pointer-events-none opacity-60 -ml-20 -mb-20" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFF8E7] rounded-full blur-3xl pointer-events-none opacity-80 -mr-20 -mt-20" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#E0F2FE] rounded-full blur-3xl pointer-events-none opacity-50 -ml-20 -mb-20" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header Section */}
@@ -75,11 +75,11 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center text-center mb-10 sm:mb-14 gap-3 max-w-2xl mx-auto"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFFDF0] text-[#1a3d1a] text-xs font-semibold tracking-wide border border-[#1a3d1a]/10">
-            <Sparkles className="w-3.5 h-3.5 text-[#1a3d1a]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] text-[#31b1ba] text-xs font-semibold tracking-wide border border-[#FFC72C]/40">
+            <Sparkles className="w-3.5 h-3.5 text-[#FF6B00]" />
             <span>Curated Collections</span>
           </div>
-          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl text-[#1a3d1a] tracking-tight leading-tight">
+          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl text-[#31b1ba] tracking-tight leading-tight">
             Explore Royal Categories
           </h2>
           <p className="text-gray-600 text-sm sm:text-base leading-relaxed mt-1">
@@ -132,7 +132,7 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
                     idx > 0 ? '-ml-20 sm:-ml-24 md:-ml-32' : ''
                   } ${
                     dist === 0
-                      ? 'shadow-2xl border-[#1a3d1a]/40 ring-2 ring-[#1a3d1a]/15'
+                      ? 'shadow-2xl border-[#31b1ba]/40 ring-2 ring-[#FFC72C]'
                       : 'shadow-lg hover:shadow-xl'
                   }`}
                 >
@@ -143,10 +143,10 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
                       alt={cat.title}
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                     />
-                    <span className="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md text-[#1a3d1a] text-[11px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full shadow-sm border border-white/60">
+                    <span className="absolute top-2.5 left-2.5 bg-white/95 backdrop-blur-md text-[#31b1ba] text-[11px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full shadow-sm border border-white/60">
                       {cat.tag}
                     </span>
-                    <span className="absolute bottom-2.5 right-2.5 bg-[#1a3d1a] text-white p-2 rounded-full shadow-md transition-transform duration-300 group-hover:scale-110">
+                    <span className="absolute bottom-2.5 right-2.5 bg-[#31b1ba] text-[#FFC72C] p-2 rounded-full shadow-md transition-transform duration-300 group-hover:scale-110">
                       <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </span>
                   </div>
@@ -154,7 +154,7 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
                   {/* Content */}
                   <div className="flex-1 flex flex-col">
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className="font-serif-display text-base sm:text-lg text-[#1a3d1a] group-hover:text-[#2a5a2a] transition-colors leading-snug">
+                      <h3 className="font-serif-display text-base sm:text-lg text-[#31b1ba] group-hover:text-[#FF6B00] transition-colors leading-snug">
                         {cat.title}
                       </h3>
                     </div>

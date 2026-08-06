@@ -14,9 +14,9 @@ const LOGOS = [
 
 export const LogoMarquee: React.FC = () => {
   return (
-    <section className="w-full bg-[#0d210d] text-white py-6 border-y border-white/10 overflow-hidden relative select-none">
-      {/* Subtle Lime Ambient Light */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-32 h-32 bg-[#B8FF52]/10 blur-2xl rounded-full pointer-events-none" />
+    <section className="w-full bg-[#31b1ba] text-white py-6 border-y border-white/10 overflow-hidden relative select-none">
+      {/* Subtle Gold Ambient Light */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-32 h-32 bg-[#FFC72C]/10 blur-2xl rounded-full pointer-events-none" />
       
       <div className="flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <motion.div
@@ -33,11 +33,11 @@ export const LogoMarquee: React.FC = () => {
               key={`${logo.name}-${idx}`}
               className="inline-flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-full transition-colors cursor-pointer group"
             >
-              <Sparkles className="w-4 h-4 text-[#B8FF52] group-hover:rotate-45 transition-transform" />
-              <span className="font-mono text-xs sm:text-sm font-bold tracking-wider text-emerald-100">
+              <Sparkles className="w-4 h-4 text-[#FFC72C] group-hover:rotate-45 transition-transform" />
+              <span className="font-mono text-xs sm:text-sm font-bold tracking-wider text-amber-100">
                 {logo.name}
               </span>
-              <span className="text-[10px] font-mono uppercase bg-[#B8FF52]/20 text-[#B8FF52] px-2 py-0.5 rounded-md border border-[#B8FF52]/30">
+              <span className="text-[10px] font-mono uppercase bg-[#FFC72C]/20 text-[#FFC72C] px-2 py-0.5 rounded-md border border-[#FFC72C]/30">
                 {logo.tag}
               </span>
             </div>

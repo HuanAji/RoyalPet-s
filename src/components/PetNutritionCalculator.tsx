@@ -35,7 +35,7 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
   const recommendedProduct = petType === 'cat' ? CAT_FOOD_PRODUCT : DOG_FOOD_PRODUCT;
 
   return (
-    <section className="w-full py-16 sm:py-24 px-4 sm:px-8 md:px-12 bg-white text-[#1a3d1a] relative overflow-hidden">
+    <section className="w-full py-16 sm:py-24 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -44,11 +44,11 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFFDF0] text-[#1a3d1a] text-xs font-semibold mb-3 border border-[#1a3d1a]/10">
-            <Calculator className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] text-[#31b1ba] text-xs font-semibold mb-3 border border-[#FFC72C]/40">
+            <Calculator className="w-3.5 h-3.5 text-[#FF6B00]" />
             <span>Interactive Tool</span>
           </div>
-          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl text-[#1a3d1a] tracking-tight">
+          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl text-[#31b1ba] tracking-tight">
             Royal Nutrition Calculator
           </h2>
           <p className="text-gray-600 text-sm sm:text-base mt-3 leading-relaxed">
@@ -64,7 +64,7 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-7 bg-[#FAFDFB] p-6 sm:p-8 rounded-3xl border border-gray-200/80 shadow-sm flex flex-col justify-between"
+            className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-gray-200/80 shadow-sm flex flex-col justify-between"
           >
             <div className="space-y-6">
               {/* Step 1: Pet Type */}
@@ -81,7 +81,7 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                     }}
                     className={`p-3.5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all border ${
                       petType === 'dog'
-                        ? 'bg-[#1a3d1a] text-white border-[#1a3d1a] shadow-md'
+                        ? 'bg-[#31b1ba] text-white border-[#31b1ba] shadow-md'
                         : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -95,7 +95,7 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                     }}
                     className={`p-3.5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all border ${
                       petType === 'cat'
-                        ? 'bg-[#1a3d1a] text-white border-[#1a3d1a] shadow-md'
+                        ? 'bg-[#31b1ba] text-white border-[#31b1ba] shadow-md'
                         : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -121,7 +121,7 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                       onClick={() => setAgeGroup(item.key as any)}
                       className={`py-2.5 px-3 rounded-xl font-medium text-xs sm:text-sm transition-all border ${
                         ageGroup === item.key
-                          ? 'bg-[#1a3d1a] text-white border-[#1a3d1a]'
+                          ? 'bg-[#31b1ba] text-white border-[#31b1ba]'
                           : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
                       }`}
                     >
@@ -137,7 +137,7 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                   <label className="text-xs font-bold uppercase tracking-wider text-gray-500">
                     3. Pet Weight
                   </label>
-                  <span className="text-sm font-extrabold text-[#1a3d1a] bg-[#EFFDF0] px-3 py-1 rounded-full border border-[#1a3d1a]/10">
+                  <span className="text-sm font-extrabold text-[#31b1ba] bg-[#FFF8E7] px-3 py-1 rounded-full border border-[#FFC72C]/40">
                     {weight} kg
                   </span>
                 </div>
@@ -148,7 +148,7 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                   step={0.5}
                   value={weight}
                   onChange={(e) => setWeight(parseFloat(e.target.value))}
-                  className="w-full accent-[#1a3d1a] cursor-pointer h-2 bg-gray-200 rounded-lg"
+                  className="w-full accent-[#FF6B00] cursor-pointer h-2 bg-gray-200 rounded-lg"
                 />
               </div>
 
@@ -169,7 +169,7 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                       onClick={() => setActivity(item.key as any)}
                       className={`py-2.5 px-2 rounded-xl font-medium text-xs transition-all border ${
                         activity === item.key
-                          ? 'bg-[#1a3d1a] text-white border-[#1a3d1a]'
+                          ? 'bg-[#31b1ba] text-white border-[#31b1ba]'
                           : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
                       }`}
                     >
@@ -187,28 +187,28 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-5 bg-[#EFFDF0] p-6 sm:p-8 rounded-3xl border border-[#1a3d1a]/15 shadow-md flex flex-col justify-between"
+            className="lg:col-span-5 bg-[#FFF8E7] p-6 sm:p-8 rounded-3xl border border-[#FFC72C]/50 shadow-md flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold text-[#1a3d1a] uppercase tracking-wider mb-4">
-                <Sparkles className="w-4 h-4 text-[#1a3d1a]" />
+              <div className="flex items-center gap-2 text-xs font-bold text-[#31b1ba] uppercase tracking-wider mb-4">
+                <Sparkles className="w-4 h-4 text-[#FF6B00]" />
                 <span>Custom Nutrition Results</span>
               </div>
 
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="bg-white p-4 rounded-2xl border border-white/80 shadow-xs">
                   <span className="text-xs text-gray-500 font-medium block">Daily Energy</span>
-                  <span className="text-2xl font-extrabold text-[#1a3d1a]">{dailyCalories}</span>
+                  <span className="text-2xl font-extrabold text-[#31b1ba]">{dailyCalories}</span>
                   <span className="text-xs text-gray-500 ml-1">kcal/day</span>
                 </div>
                 <div className="bg-white p-4 rounded-2xl border border-white/80 shadow-xs">
                   <span className="text-xs text-gray-500 font-medium block">Portion Size</span>
-                  <span className="text-2xl font-extrabold text-[#1a3d1a]">{dailyGrams}</span>
+                  <span className="text-2xl font-extrabold text-[#31b1ba]">{dailyGrams}</span>
                   <span className="text-xs text-gray-500 ml-1">g/day</span>
                 </div>
               </div>
 
-              <div className="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-white/60 mb-6">
+              <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl border border-white/60 mb-6">
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-2">
                   Recommended Royal Formula
                 </span>
@@ -219,10 +219,10 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                     className="w-14 h-14 object-contain rounded-lg bg-white p-1 border border-gray-100"
                   />
                   <div>
-                    <h4 className="font-serif-display text-base text-[#1a3d1a] font-bold">
+                    <h4 className="font-serif-display text-base text-[#31b1ba] font-bold">
                       {recommendedProduct.name}
                     </h4>
-                    <p className="text-xs text-emerald-700 font-medium flex items-center gap-1 mt-0.5">
+                    <p className="text-xs text-[#FF6B00] font-medium flex items-center gap-1 mt-0.5">
                       <CheckCircle2 className="w-3.5 h-3.5" /> Vet-approved ratio
                     </p>
                   </div>
@@ -232,7 +232,7 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
 
             <button
               onClick={() => onSelectProduct(recommendedProduct)}
-              className="w-full bg-[#1a3d1a] hover:bg-[#2a5a2a] text-white py-3.5 px-6 rounded-2xl font-semibold text-sm transition-all shadow-md hover:scale-[1.02] flex items-center justify-center gap-2"
+              className="w-full bg-[#FF6B00] hover:bg-[#E05E00] text-white py-3.5 px-6 rounded-2xl font-semibold text-sm transition-all shadow-md hover:scale-[1.02] flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Get This Royal Meal Plan</span>
               <ArrowRight className="w-4 h-4" />

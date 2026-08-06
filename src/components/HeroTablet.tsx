@@ -50,16 +50,16 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
             />
             <button
               aria-label="View product"
-              className="absolute bottom-1.5 right-1.5 bg-[#1a3d1a] text-white p-1.5 rounded-full shadow-xs flex items-center justify-center"
+              className="absolute bottom-1.5 right-1.5 bg-[#31b1ba] text-white p-1.5 rounded-full shadow-xs flex items-center justify-center"
             >
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#FFC72C]" />
             </button>
           </div>
           <div className="mt-1.5 px-0.5">
             <p className="text-gray-800 font-semibold text-xs leading-tight line-clamp-1">
               {CAT_FOOD_PRODUCT.name}
             </p>
-            <p className="text-[#1a3d1a] font-extrabold text-xs mt-0.5">
+            <p className="text-[#31b1ba] font-extrabold text-xs mt-0.5">
               {CAT_FOOD_PRODUCT.price}
             </p>
           </div>
@@ -80,16 +80,16 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
             />
             <button
               aria-label="View product"
-              className="absolute bottom-1.5 right-1.5 bg-[#1a3d1a] text-white p-1.5 rounded-full shadow-xs flex items-center justify-center"
+              className="absolute bottom-1.5 right-1.5 bg-[#31b1ba] text-white p-1.5 rounded-full shadow-xs flex items-center justify-center"
             >
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#FFC72C]" />
             </button>
           </div>
           <div className="mt-1.5 px-0.5">
             <p className="text-gray-800 font-semibold text-xs leading-tight line-clamp-1">
               {DOG_FOOD_PRODUCT.name}
             </p>
-            <p className="text-[#1a3d1a] font-extrabold text-xs mt-0.5">
+            <p className="text-[#31b1ba] font-extrabold text-xs mt-0.5">
               {DOG_FOOD_PRODUCT.price}
             </p>
           </div>
