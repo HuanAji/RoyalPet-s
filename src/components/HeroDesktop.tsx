@@ -25,15 +25,15 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
   const rightCardX = useTransform(scrollY, [0, 300], [0, 70]);
   const rightCardY = useTransform(scrollY, [0, 300], [0, -40]);
 
-  // High-impact dramatic scroll zoom for the 3 pet hero images
-  const leftPetScale = useTransform(scrollY, [0, 450], [1.0, 2.1]);
-  const leftPetY = useTransform(scrollY, [0, 450], [0, -80]);
+  // Zoom with higher vertical placement (reduced/negative Y shift) so pet faces & cat eyes are positioned higher up
+  const leftPetScale = useTransform(scrollY, [0, 450], [1.0, 1.95]);
+  const leftPetY = useTransform(scrollY, [0, 450], [0, 10]);
 
-  const centerPetScale = useTransform(scrollY, [0, 450], [1.0, 2.4]);
-  const centerPetY = useTransform(scrollY, [0, 450], [0, -120]);
+  const centerPetScale = useTransform(scrollY, [0, 450], [1.0, 2.2]);
+  const centerPetY = useTransform(scrollY, [0, 450], [0, 20]);
 
-  const rightPetScale = useTransform(scrollY, [0, 450], [1.0, 2.1]);
-  const rightPetY = useTransform(scrollY, [0, 450], [0, -80]);
+  const rightPetScale = useTransform(scrollY, [0, 450], [1.0, 2.05]);
+  const rightPetY = useTransform(scrollY, [0, 450], [0, -15]);
 
   return (
     <div className="hidden lg:flex flex-col justify-between relative w-full h-full flex-1 overflow-hidden select-none">
@@ -127,7 +127,7 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             style={{ scale: leftPetScale, y: leftPetY }}
             src={ASSETS.bottomLeftImage}
             alt="Playful Dachshund Dog"
-            className="w-full max-h-[min(50vh,420px)] object-contain object-bottom block select-none origin-bottom cursor-pointer pointer-events-auto transition-filter duration-300 hover:brightness-105"
+            className="w-full max-h-[min(50vh,420px)] object-contain object-bottom block select-none origin-top cursor-pointer pointer-events-auto transition-filter duration-300 hover:brightness-105"
           />
           {/* Overlay Left Badge */}
           <div className="absolute bottom-3 lg:bottom-5 left-6 lg:left-10 z-20 animate-fade-up delay-1000 pointer-events-auto">
@@ -161,7 +161,7 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             style={{ scale: centerPetScale, y: centerPetY }}
             src={ASSETS.bottomCenterImage}
             alt="Golden Retriever Showpiece Dog"
-            className="w-full max-h-[min(54vh,480px)] object-contain object-bottom block select-none origin-bottom cursor-pointer pointer-events-auto transition-filter duration-300 hover:brightness-105"
+            className="w-full max-h-[min(54vh,480px)] object-contain object-bottom block select-none origin-top cursor-pointer pointer-events-auto transition-filter duration-300 hover:brightness-105"
           />
           {/* Overlay Center Button */}
           <div className="absolute bottom-3 lg:bottom-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-center gap-2 animate-fade-up delay-1100 pointer-events-auto w-full px-4 max-w-lg">
@@ -189,7 +189,7 @@ export const HeroDesktop: React.FC<HeroDesktopProps> = ({
             style={{ scale: rightPetScale, y: rightPetY }}
             src={ASSETS.bottomRightImage}
             alt="Cute Playful Ginger Cat"
-            className="w-full max-h-[min(50vh,420px)] object-contain object-bottom block select-none origin-bottom cursor-pointer pointer-events-auto transition-filter duration-300 hover:brightness-105"
+            className="w-full max-h-[min(50vh,420px)] object-contain object-bottom block select-none origin-top cursor-pointer pointer-events-auto transition-filter duration-300 hover:brightness-105"
           />
           {/* Overlay Right Badge */}
           <div className="absolute bottom-3 lg:bottom-5 right-6 lg:right-10 z-20 animate-fade-up delay-1200 pointer-events-auto">

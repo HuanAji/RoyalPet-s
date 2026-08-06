@@ -55,14 +55,14 @@ export const HorizontalGallery: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollableRef = useRef<HTMLDivElement>(null);
 
-  // Trigger scroll-driven transform when section enters viewport center
+  // Trigger scroll-driven transform when the images container reaches viewport center
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: scrollableRef,
     offset: ['start center', 'end start'],
   });
 
-  // Hold x at 0% from progress 0 to 0.15 so Card #1 is 100% visible when arriving
-  const xTransform = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], ['0%', '0%', '-55%', '-55%']);
+  // Hold x at 0% from progress 0 to 0.2 so Card #1 is fully visible when images arrive at center
+  const xTransform = useTransform(scrollYProgress, [0, 0.2, 0.85, 1], ['0%', '0%', '-55%', '-55%']);
 
   const handleManualScroll = (direction: 'left' | 'right') => {
     if (scrollableRef.current) {

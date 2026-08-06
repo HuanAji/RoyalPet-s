@@ -15,9 +15,14 @@ export const HeroMobile: React.FC<HeroMobileProps> = ({
 }) => {
   const { scrollY } = useScroll();
 
-  const leftPetScale = useTransform(scrollY, [0, 250], [1.0, 1.50]);
-  const centerPetScale = useTransform(scrollY, [0, 250], [1.0, 1.70]);
-  const rightPetScale = useTransform(scrollY, [0, 250], [1.0, 1.50]);
+  const leftPetScale = useTransform(scrollY, [0, 250], [1.0, 1.70]);
+  const leftPetY = useTransform(scrollY, [0, 250], [0, 5]);
+
+  const centerPetScale = useTransform(scrollY, [0, 250], [1.0, 1.90]);
+  const centerPetY = useTransform(scrollY, [0, 250], [0, 10]);
+
+  const rightPetScale = useTransform(scrollY, [0, 250], [1.0, 1.75]);
+  const rightPetY = useTransform(scrollY, [0, 250], [0, -5]);
 
   return (
     <div className="flex md:hidden flex-col justify-between relative w-full h-full flex-1 overflow-hidden select-none px-4 pt-4 pb-0">
@@ -133,26 +138,26 @@ export const HeroMobile: React.FC<HeroMobileProps> = ({
       >
         <div className="flex-1 max-h-[18vh] overflow-hidden">
           <motion.img
-            style={{ scale: leftPetScale }}
+            style={{ scale: leftPetScale, y: leftPetY }}
             src={ASSETS.bottomLeftImage}
             alt="Pet with owner"
-            className="w-full h-full object-cover object-top origin-bottom"
+            className="w-full h-full object-cover object-bottom origin-top"
           />
         </div>
         <div className="flex-[1.265] max-h-[22vh] overflow-hidden">
           <motion.img
-            style={{ scale: centerPetScale }}
+            style={{ scale: centerPetScale, y: centerPetY }}
             src={ASSETS.bottomCenterImage}
             alt="Main pet showpiece"
-            className="w-full h-full object-cover object-top origin-bottom"
+            className="w-full h-full object-cover object-bottom origin-top"
           />
         </div>
         <div className="flex-1 max-h-[18vh] overflow-hidden">
           <motion.img
-            style={{ scale: rightPetScale }}
+            style={{ scale: rightPetScale, y: rightPetY }}
             src={ASSETS.bottomRightImage}
             alt="Playful cat"
-            className="w-full h-full object-cover object-top origin-bottom"
+            className="w-full h-full object-cover object-bottom origin-top"
           />
         </div>
       </motion.div>

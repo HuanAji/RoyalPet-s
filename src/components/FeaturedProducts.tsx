@@ -165,104 +165,106 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
           </motion.div>
         </div>
 
-        {/* Product Cards Grid with Equal 1:1 Aspect Ratio Images */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          <AnimatePresence>
-            {filteredProducts.map((product, index) => (
-              <motion.div
-                key={product.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                onClick={() => onSelectProduct(product as unknown as ProductType)}
-                className="group cursor-pointer bg-white rounded-3xl p-4 sm:p-5 shadow-sm hover:shadow-2xl border border-white/60 hover:border-[#1a3d1a]/30 transition-all duration-300 flex flex-col relative overflow-hidden"
-              >
-                {/* 1:1 Square Image Container with Smooth Crossfade */}
-                <div className="w-full aspect-square rounded-2xl bg-[#F0FAF2] relative overflow-hidden mb-4 border border-emerald-900/10">
-                  {/* Primary Image */}
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-0 absolute inset-0"
-                  />
+        {/* Product Cards Grid: 2 cols on Mobile, 3 cols on Tablet & Desktop with compact max width */}
+        <div className="max-w-5xl mx-auto">
+          <motion.div layout className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
+            <AnimatePresence>
+              {filteredProducts.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  onClick={() => onSelectProduct(product as unknown as ProductType)}
+                  className="group cursor-pointer bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-3.5 shadow-sm hover:shadow-xl border border-white/60 hover:border-[#1a3d1a]/30 transition-all duration-300 flex flex-col relative overflow-hidden"
+                >
+                  {/* Compact Image Container with 16:10 aspect ratio and max height */}
+                  <div className="w-full h-28 sm:h-36 md:h-40 lg:h-44 rounded-lg sm:rounded-xl bg-[#F0FAF2] relative overflow-hidden mb-2.5 sm:mb-3 border border-emerald-900/10">
+                    {/* Primary Image */}
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-0 absolute inset-0"
+                    />
 
-                  {/* Hover Secondary Image */}
-                  <img
-                    src={product.hoverImage}
-                    alt={`${product.name} in action`}
-                    className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-105 absolute inset-0"
-                  />
+                    {/* Hover Secondary Image */}
+                    <img
+                      src={product.hoverImage}
+                      alt={`${product.name} in action`}
+                      className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-105 absolute inset-0"
+                    />
 
-                  {/* Top Left Rating Badge */}
-                  <div className="absolute top-3 left-3 z-10 flex items-center gap-1 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#1a3d1a] shadow-md">
-                    <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                    <span>{product.rating}</span>
-                    <span className="text-gray-400 font-normal">({product.reviewsCount})</span>
-                  </div>
-
-                  {/* Top Right Special Badge */}
-                  {product.badge && (
-                    <div className="absolute top-3 right-3 z-10 bg-[#1a3d1a] text-[#B8FF52] text-[10px] font-mono font-bold px-3 py-1 rounded-full shadow-md">
-                      {product.badge}
+                    {/* Top Left Rating Badge */}
+                    <div className="absolute top-1.5 left-1.5 sm:top-2.5 sm:left-2.5 z-10 flex items-center gap-1 bg-white/90 backdrop-blur-md px-1.5 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold text-[#1a3d1a] shadow-md">
+                      <Star className="w-2.5 h-2.5 sm:w-3 h-3 fill-amber-400 text-amber-400" />
+                      <span>{product.rating}</span>
+                      <span className="text-gray-400 font-normal hidden sm:inline">({product.reviewsCount})</span>
                     </div>
-                  )}
 
-                  {/* Quick View Floating Button */}
-                  <div className="absolute inset-0 z-10 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                    <span className="bg-white/95 backdrop-blur-md text-[#1a3d1a] font-bold text-xs px-4 py-2 rounded-full shadow-xl flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <Eye className="w-3.5 h-3.5" /> Quick View
-                    </span>
-                  </div>
-
-                  {/* Add to Cart Button */}
-                  <button
-                    onClick={(e) => handleAddClick(e, product)}
-                    aria-label="Add to Cart"
-                    className={`absolute bottom-3 right-3 z-20 p-3 rounded-full transition-all duration-300 shadow-lg ${
-                      addedIds[product.id]
-                        ? 'bg-emerald-600 text-white scale-110'
-                        : 'bg-[#1a3d1a] text-white hover:bg-[#2a5a2a] group-hover:scale-105'
-                    }`}
-                  >
-                    {addedIds[product.id] ? (
-                      <Check className="w-4 h-4" />
-                    ) : (
-                      <ShoppingBag className="w-4 h-4" />
+                    {/* Top Right Special Badge */}
+                    {product.badge && (
+                      <div className="absolute top-1.5 right-1.5 sm:top-2.5 sm:right-2.5 z-10 bg-[#1a3d1a] text-[#B8FF52] text-[8px] sm:text-[9px] font-mono font-bold px-1.5 sm:px-2.5 py-0.5 rounded-full shadow-md">
+                        {product.badge}
+                      </div>
                     )}
-                  </button>
-                </div>
 
-                {/* Details */}
-                <div className="flex-1 flex flex-col justify-between z-10">
-                  <div>
-                    <h3 className="font-serif-display text-lg text-[#1a3d1a] group-hover:text-[#2a5a2a] transition-colors leading-snug">
-                      {product.name}
-                    </h3>
-                    <p className="text-xs text-gray-500 line-clamp-2 mt-1.5 leading-relaxed">
-                      {product.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] uppercase font-mono tracking-wider text-gray-400 block">
-                        Price
+                    {/* Quick View Floating Button */}
+                    <div className="absolute inset-0 z-10 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex items-center justify-center pointer-events-none">
+                      <span className="bg-white/95 backdrop-blur-md text-[#1a3d1a] font-bold text-[11px] px-3 py-1 rounded-full shadow-xl flex items-center gap-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                        <Eye className="w-3 h-3" /> Quick View
                       </span>
-                      <span className="text-lg font-bold text-[#1a3d1a]">{product.price}</span>
                     </div>
 
-                    <span className="text-xs font-bold text-[#1a3d1a] group-hover:text-emerald-700 flex items-center gap-0.5">
-                      View Details
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </span>
+                    {/* Add to Cart Button */}
+                    <button
+                      onClick={(e) => handleAddClick(e, product)}
+                      aria-label="Add to Cart"
+                      className={`absolute bottom-1.5 right-1.5 sm:bottom-2.5 sm:right-2.5 z-20 p-1.5 sm:p-2 rounded-full transition-all duration-300 shadow-lg ${
+                        addedIds[product.id]
+                          ? 'bg-emerald-600 text-white scale-110'
+                          : 'bg-[#1a3d1a] text-white hover:bg-[#2a5a2a] group-hover:scale-105'
+                      }`}
+                    >
+                      {addedIds[product.id] ? (
+                        <Check className="w-3 h-3 sm:w-3.5 h-3.5" />
+                      ) : (
+                        <ShoppingBag className="w-3 h-3 sm:w-3.5 h-3.5" />
+                      )}
+                    </button>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+
+                  {/* Details */}
+                  <div className="flex-1 flex flex-col justify-between z-10">
+                    <div>
+                      <h3 className="font-serif-display text-xs sm:text-sm md:text-base text-[#1a3d1a] group-hover:text-[#2a5a2a] transition-colors leading-snug line-clamp-1">
+                        {product.name}
+                      </h3>
+                      <p className="text-[10px] sm:text-xs text-gray-500 line-clamp-2 mt-0.5 sm:mt-1 leading-relaxed">
+                        {product.description}
+                      </p>
+                    </div>
+
+                    <div className="mt-2 sm:mt-3 pt-2 border-t border-gray-100 flex items-center justify-between">
+                      <div>
+                        <span className="text-[8px] sm:text-[9px] uppercase font-mono tracking-wider text-gray-400 block">
+                          Price
+                        </span>
+                        <span className="text-xs sm:text-sm md:text-base font-bold text-[#1a3d1a]">{product.price}</span>
+                      </div>
+
+                      <span className="text-[10px] sm:text-xs font-bold text-[#1a3d1a] group-hover:text-emerald-700 flex items-center gap-0.5">
+                        <span className="hidden sm:inline">Details</span>
+                        <ArrowUpRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

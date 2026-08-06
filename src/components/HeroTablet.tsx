@@ -17,15 +17,15 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
 
   const titleY = useTransform(scrollY, [0, 300], [0, -60]);
   
-  // High-impact dramatic scroll zoom for tablet pet images
-  const leftPetScale = useTransform(scrollY, [0, 300], [1.0, 1.80]);
-  const leftPetY = useTransform(scrollY, [0, 300], [0, -50]);
+  // Zoom with higher vertical placement on tablet
+  const leftPetScale = useTransform(scrollY, [0, 300], [1.0, 1.9]);
+  const leftPetY = useTransform(scrollY, [0, 300], [0, 10]);
 
-  const centerPetScale = useTransform(scrollY, [0, 300], [1.0, 2.05]);
-  const centerPetY = useTransform(scrollY, [0, 300], [0, -75]);
+  const centerPetScale = useTransform(scrollY, [0, 300], [1.0, 2.1]);
+  const centerPetY = useTransform(scrollY, [0, 300], [0, 15]);
 
-  const rightPetScale = useTransform(scrollY, [0, 300], [1.0, 1.80]);
-  const rightPetY = useTransform(scrollY, [0, 300], [0, -50]);
+  const rightPetScale = useTransform(scrollY, [0, 300], [1.0, 2.0]);
+  const rightPetY = useTransform(scrollY, [0, 300], [0, -10]);
 
   return (
     <div className="hidden md:flex lg:hidden flex-col justify-between relative w-full h-full flex-1 overflow-hidden select-none">
@@ -109,7 +109,7 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
             style={{ scale: leftPetScale, y: leftPetY }}
             src={ASSETS.bottomLeftImage}
             alt="Pet with owner"
-            className="w-full max-h-[46vh] object-contain object-bottom block select-none origin-bottom pointer-events-auto transition-filter hover:brightness-105"
+            className="w-full max-h-[46vh] object-contain object-bottom block select-none origin-top pointer-events-auto transition-filter hover:brightness-105"
           />
           {/* Overlay Left */}
           <div className="absolute bottom-3 left-3 z-20 animate-fade-up delay-1000 pointer-events-auto">
@@ -143,7 +143,7 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
             style={{ scale: centerPetScale, y: centerPetY }}
             src={ASSETS.bottomCenterImage}
             alt="Main pet showpiece"
-            className="w-full max-h-[50vh] object-contain object-bottom block select-none origin-bottom pointer-events-auto transition-filter hover:brightness-105"
+            className="w-full max-h-[50vh] object-contain object-bottom block select-none origin-top pointer-events-auto transition-filter hover:brightness-105"
           />
           {/* Overlay Center */}
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-center gap-1.5 animate-fade-up delay-1100 pointer-events-auto w-full px-2">
@@ -171,7 +171,7 @@ export const HeroTablet: React.FC<HeroTabletProps> = ({
             style={{ scale: rightPetScale, y: rightPetY }}
             src={ASSETS.bottomRightImage}
             alt="Cute cat"
-            className="w-full max-h-[46vh] object-contain object-bottom block select-none origin-bottom pointer-events-auto transition-filter hover:brightness-105"
+            className="w-full max-h-[46vh] object-contain object-bottom block select-none origin-top pointer-events-auto transition-filter hover:brightness-105"
           />
           {/* Overlay Right */}
           <div className="absolute bottom-3 right-3 z-20 animate-fade-up delay-1200 pointer-events-auto">
