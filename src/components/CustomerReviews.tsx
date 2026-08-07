@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Star, Quote, CheckCircle2, Heart, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 
@@ -59,9 +59,54 @@ const REVIEWS = [
   },
 ];
 
+// Tripled list for infinite looping marquee
+const TRIPLED_REVIEWS = [...REVIEWS, ...REVIEWS, ...REVIEWS];
+
 export const CustomerReviews: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isPausedRef = useRef(isPaused);
+
+  useEffect(() => {
+    isPausedRef.current = isPaused;
+  }, [isPaused]);
+
+  // Set initial scroll position to middle set
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const setWidth = container.scrollWidth / 3;
+      container.scrollLeft = setWidth;
+    }
+  }, []);
+
+  // Continuous infinite marquee scroll animation
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    let animId: number;
+
+    const step = () => {
+      if (!isPausedRef.current) {
+        container.scrollLeft += 0.8;
+      }
+
+      const singleSetWidth = container.scrollWidth / 3;
+      if (singleSetWidth > 0) {
+        if (container.scrollLeft >= singleSetWidth * 2) {
+          container.scrollLeft -= singleSetWidth;
+        } else if (container.scrollLeft <= 5) {
+          container.scrollLeft += singleSetWidth;
+        }
+      }
+
+      animId = requestAnimationFrame(step);
+    };
+
+    animId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animId);
+  }, []);
 
   const handleManualScroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -125,59 +170,51 @@ export const CustomerReviews: React.FC = () => {
       {/* Smooth Continuous Horizontal Scrolling Marquee */}
       <div
         ref={scrollContainerRef}
-        className="w-full overflow-x-auto no-scrollbar scroll-smooth px-4 sm:px-8"
+        className="w-full overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden scroll-smooth px-4 sm:px-8"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        <motion.div
-          animate={isPaused ? false : { x: ['0%', '-50%'] }}
-          transition={{
-            repeat: Infinity,
-            duration: 32,
-            ease: 'linear',
-          }}
-          className="flex gap-6 sm:gap-8 pb-6 min-w-max"
-        >
-          {[...REVIEWS, ...REVIEWS].map((rev, idx) => (
+        <div className="flex gap-6 sm:gap-8 pb-6 min-w-max">
+          {TRIPLED_REVIEWS.map((rev, idx) => (
             <div
               key={`${rev.id}-${idx}`}
-              className="w-[300px] sm:w-[380px] bg-white rounded-3xl p-6 border border-gray-200/80 shadow-xs hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group shrink-0"
+              className="w-[280px] sm:w-[330px] bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-gray-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group shrink-0"
             >
               <div>
                 {/* Pet Photo Header */}
-                <div className="aspect-[16/10] rounded-2xl overflow-hidden mb-5 relative bg-gray-100">
+                <div className="aspect-[16/10] rounded-xl sm:rounded-2xl overflow-hidden mb-4 relative bg-gray-100">
                   <img
                     src={rev.petImage}
                     alt={rev.petType}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-90" />
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
-                    <span className="text-[11px] font-bold bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/30 font-mono">
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white">
+                    <span className="text-[10px] font-bold bg-white/20 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/30 font-mono">
                       {rev.petType}
                     </span>
                     <div className="flex items-center gap-0.5">
                       {[...Array(rev.rating)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
                       ))}
                     </div>
                   </div>
                 </div>
 
-                <Quote className="w-7 h-7 text-[#31b1ba]/20 mb-2" />
-                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed italic mb-6">
+                <Quote className="w-6 h-6 text-[#31b1ba]/20 mb-1.5" />
+                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed italic mb-4">
                   "{rev.comment}"
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-gray-100 flex items-center gap-3">
+              <div className="pt-3 border-t border-gray-100 flex items-center gap-2.5">
                 <img
                   src={rev.avatar}
                   alt={rev.name}
-                  className="w-10 h-10 rounded-full object-cover border-2 border-[#31b1ba]/20"
+                  className="w-9 h-9 rounded-full object-cover border-2 border-[#31b1ba]/20"
                 />
                 <div>
-                  <h4 className="font-semibold text-sm text-[#31b1ba] flex items-center gap-1.5">
+                  <h4 className="font-semibold text-xs sm:text-sm text-[#31b1ba] flex items-center gap-1.5">
                     {rev.name}
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#FF6B00]" />
                   </h4>
@@ -186,8 +223,9 @@ export const CustomerReviews: React.FC = () => {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
+

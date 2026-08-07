@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Calculator, Sparkles, Heart, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Calculator, Sparkles, Heart, CheckCircle2, ArrowRight, Baby, Crown, Home, Activity, Zap } from 'lucide-react';
 import { ProductType } from './Modals';
 import { CAT_FOOD_PRODUCT, DOG_FOOD_PRODUCT } from '../constants';
 
@@ -72,34 +72,65 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                 <label className="text-xs font-bold uppercase tracking-wider text-gray-500 block mb-2.5">
                   1. Select Companion
                 </label>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <button
                     type="button"
                     onClick={() => {
                       setPetType('dog');
                       setWeight(10);
                     }}
-                    className={`p-3.5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all border ${
+                    className={`p-2.5 sm:p-3 rounded-2xl font-semibold text-sm flex items-center gap-3 transition-all border relative cursor-pointer group ${
                       petType === 'dog'
-                        ? 'bg-[#31b1ba] text-white border-[#31b1ba] shadow-md'
-                        : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
+                        ? 'bg-[#FFF8E7] text-[#31b1ba] border-[#31b1ba] ring-2 ring-[#31b1ba]/30 shadow-md'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-[#31b1ba]/40 hover:bg-gray-50'
                     }`}
                   >
-                    <span>🐶 Dog</span>
+                    <div className="relative w-11 h-11 sm:w-13 sm:h-13 rounded-full overflow-hidden shrink-0 border-2 border-white shadow-xs">
+                      <img
+                        src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=200"
+                        alt="Dog"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className="font-bold text-sm sm:text-base text-gray-900 group-hover:text-[#31b1ba] leading-tight">Dog</span>
+                      <span className="text-[11px] text-gray-500 font-normal">Anjing</span>
+                    </div>
+                    {petType === 'dog' && (
+                      <div className="ml-auto bg-[#31b1ba] text-white p-1 rounded-full shadow-2xs">
+                        <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      </div>
+                    )}
                   </button>
+
                   <button
                     type="button"
                     onClick={() => {
                       setPetType('cat');
                       setWeight(4);
                     }}
-                    className={`p-3.5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all border ${
+                    className={`p-2.5 sm:p-3 rounded-2xl font-semibold text-sm flex items-center gap-3 transition-all border relative cursor-pointer group ${
                       petType === 'cat'
-                        ? 'bg-[#31b1ba] text-white border-[#31b1ba] shadow-md'
-                        : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
+                        ? 'bg-[#FFF8E7] text-[#31b1ba] border-[#31b1ba] ring-2 ring-[#31b1ba]/30 shadow-md'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-[#31b1ba]/40 hover:bg-gray-50'
                     }`}
                   >
-                    <span>🐱 Cat</span>
+                    <div className="relative w-11 h-11 sm:w-13 sm:h-13 rounded-full overflow-hidden shrink-0 border-2 border-white shadow-xs">
+                      <img
+                        src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=200"
+                        alt="Cat"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className="font-bold text-sm sm:text-base text-gray-900 group-hover:text-[#31b1ba] leading-tight">Cat</span>
+                      <span className="text-[11px] text-gray-500 font-normal">Kucing</span>
+                    </div>
+                    {petType === 'cat' && (
+                      <div className="ml-auto bg-[#31b1ba] text-white p-1 rounded-full shadow-2xs">
+                        <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      </div>
+                    )}
                   </button>
                 </div>
               </div>
@@ -111,23 +142,57 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                 </label>
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {[
-                    { key: 'young', label: petType === 'dog' ? 'Puppy' : 'Kitten' },
-                    { key: 'adult', label: 'Adult' },
-                    { key: 'senior', label: 'Senior' },
-                  ].map((item) => (
-                    <button
-                      key={item.key}
-                      type="button"
-                      onClick={() => setAgeGroup(item.key as any)}
-                      className={`py-2.5 px-3 rounded-xl font-medium text-xs sm:text-sm transition-all border ${
-                        ageGroup === item.key
-                          ? 'bg-[#31b1ba] text-white border-[#31b1ba]'
-                          : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
+                    {
+                      key: 'young',
+                      label: petType === 'dog' ? 'Puppy' : 'Kitten',
+                      age: '< 1 Year',
+                      icon: Baby,
+                      color: 'text-[#FF6B00]',
+                    },
+                    {
+                      key: 'adult',
+                      label: 'Adult',
+                      age: '1 - 7 Years',
+                      icon: Heart,
+                      color: 'text-[#31b1ba]',
+                    },
+                    {
+                      key: 'senior',
+                      label: 'Senior',
+                      age: '7+ Years',
+                      icon: Crown,
+                      color: 'text-[#FFC72C]',
+                    },
+                  ].map((item) => {
+                    const IconComp = item.icon;
+                    const isSelected = ageGroup === item.key;
+                    return (
+                      <button
+                        key={item.key}
+                        type="button"
+                        onClick={() => setAgeGroup(item.key as any)}
+                        className={`p-2.5 sm:p-3 rounded-2xl transition-all border flex flex-col items-center justify-between text-center cursor-pointer group ${
+                          isSelected
+                            ? 'bg-[#FFF8E7] border-[#31b1ba] ring-2 ring-[#31b1ba]/30 shadow-xs'
+                            : 'bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                        }`}
+                      >
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center mb-1.5 transition-transform group-hover:scale-110 ${
+                            isSelected ? 'bg-[#31b1ba]/10' : 'bg-gray-100'
+                          }`}
+                        >
+                          <IconComp className={`w-4 h-4 ${item.color}`} />
+                        </div>
+                        <span className="font-bold text-xs sm:text-sm text-gray-900 block leading-tight">
+                          {item.label}
+                        </span>
+                        <span className="text-[10px] font-mono font-medium text-gray-500 mt-0.5">
+                          {item.age}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -159,23 +224,74 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
                 </label>
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {[
-                    { key: 'relaxed', label: '🏡 Relaxed' },
-                    { key: 'moderate', label: '🐕 Moderate' },
-                    { key: 'active', label: '⚡ Athletic' },
-                  ].map((item) => (
-                    <button
-                      key={item.key}
-                      type="button"
-                      onClick={() => setActivity(item.key as any)}
-                      className={`py-2.5 px-2 rounded-xl font-medium text-xs transition-all border ${
-                        activity === item.key
-                          ? 'bg-[#31b1ba] text-white border-[#31b1ba]'
-                          : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
+                    {
+                      key: 'relaxed',
+                      label: 'Relaxed',
+                      desc: 'Chill / Indoor',
+                      icon: Home,
+                      bars: 1,
+                    },
+                    {
+                      key: 'moderate',
+                      label: 'Moderate',
+                      desc: 'Daily Walks',
+                      icon: Activity,
+                      bars: 2,
+                    },
+                    {
+                      key: 'active',
+                      label: 'Athletic',
+                      desc: 'High Energy',
+                      icon: Zap,
+                      bars: 3,
+                    },
+                  ].map((item) => {
+                    const IconComp = item.icon;
+                    const isSelected = activity === item.key;
+                    return (
+                      <button
+                        key={item.key}
+                        type="button"
+                        onClick={() => setActivity(item.key as any)}
+                        className={`w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full transition-all border flex flex-col items-center justify-center text-center cursor-pointer group p-1.5 sm:p-2 relative ${
+                          isSelected
+                            ? 'bg-[#FFF8E7] border-[#31b1ba] ring-2 ring-[#31b1ba]/30 shadow-sm scale-105'
+                            : 'bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                        }`}
+                      >
+                        <div
+                          className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center mb-0.5 transition-transform group-hover:scale-110 ${
+                            isSelected ? 'bg-[#31b1ba] text-white' : 'bg-gray-100 text-gray-500'
+                          }`}
+                        >
+                          <IconComp className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                        </div>
+
+                        <span className="font-bold text-[10px] sm:text-xs text-gray-900 block leading-tight">
+                          {item.label}
+                        </span>
+                        <span className="text-[8px] sm:text-[9px] text-gray-500 block font-normal leading-tight">
+                          {item.desc}
+                        </span>
+
+                        {/* Circular Energy Gauge Dots */}
+                        <div className="flex gap-0.5 mt-0.5">
+                          {[1, 2, 3].map((barNum) => (
+                            <div
+                              key={barNum}
+                              className={`w-1 h-1 rounded-full ${
+                                barNum <= item.bars
+                                  ? isSelected
+                                    ? 'bg-[#FF6B00]'
+                                    : 'bg-[#31b1ba]'
+                                  : 'bg-gray-200'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>

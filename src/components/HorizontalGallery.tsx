@@ -133,7 +133,7 @@ export const HorizontalGallery: React.FC = () => {
       {/* Horizontal Carousel (Scroll-driven + manual scroll fallback) */}
       <div
         ref={scrollableRef}
-        className="relative w-full overflow-x-auto no-scrollbar scroll-smooth px-4 sm:px-8 md:px-12"
+        className="relative w-full overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden scroll-smooth px-4 sm:px-8 md:px-12"
       >
         <motion.div
           style={{ x: xTransform }}
