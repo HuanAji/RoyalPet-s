@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Star, Quote, CheckCircle2, Heart, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { Star, Quote, CheckCircle2, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const REVIEWS = [
   {
@@ -63,13 +63,7 @@ const REVIEWS = [
 const TRIPLED_REVIEWS = [...REVIEWS, ...REVIEWS, ...REVIEWS];
 
 export const CustomerReviews: React.FC = () => {
-  const [isPaused, setIsPaused] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const isPausedRef = useRef(isPaused);
-
-  useEffect(() => {
-    isPausedRef.current = isPaused;
-  }, [isPaused]);
 
   // Set initial scroll position to middle set
   useEffect(() => {
@@ -88,9 +82,7 @@ export const CustomerReviews: React.FC = () => {
     let animId: number;
 
     const step = () => {
-      if (!isPausedRef.current) {
-        container.scrollLeft += 1.5;
-      }
+      container.scrollLeft += 1.5;
 
       const singleSetWidth = container.scrollWidth / 3;
       if (singleSetWidth > 0) {
@@ -139,13 +131,6 @@ export const CustomerReviews: React.FC = () => {
 
           {/* Carousel Controls */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => setIsPaused(!isPaused)}
-              className="px-3.5 py-2 rounded-full bg-white border border-gray-200 text-xs font-semibold flex items-center gap-2 shadow-xs hover:bg-gray-50 transition-colors cursor-pointer"
-            >
-              {isPaused ? <Play className="w-3.5 h-3.5 fill-current" /> : <Pause className="w-3.5 h-3.5 fill-current" />}
-              <span>{isPaused ? 'Resume Auto-Scroll' : 'Pause'}</span>
-            </button>
 
             <div className="flex items-center gap-2">
               <button
@@ -170,9 +155,7 @@ export const CustomerReviews: React.FC = () => {
       {/* Smooth Continuous Horizontal Scrolling Marquee */}
       <div
         ref={scrollContainerRef}
-        className="w-full overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden scroll-smooth px-4 sm:px-8"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        className="w-full overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden px-4 sm:px-8"
       >
         <div className="flex gap-6 sm:gap-8 pb-6 min-w-max">
           {TRIPLED_REVIEWS.map((rev, idx) => (
