@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Star, ShoppingCart, Heart, Search, Check, Play, Package, Award } from 'lucide-react';
+import { X, Star, ShoppingCart, Heart, Search, Check, Play, Package, Award, TrendingUp, Sparkles, ArrowRight } from 'lucide-react';
 import { CAT_FOOD_PRODUCT, DOG_FOOD_PRODUCT, ASSETS } from '../constants';
 
 export type ProductType = typeof CAT_FOOD_PRODUCT | typeof DOG_FOOD_PRODUCT;
@@ -186,52 +186,196 @@ export const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose }) => {
 interface SearchDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  onSelectProduct?: (product: ProductType) => void;
 }
 
-export const SearchDrawer: React.FC<SearchDrawerProps> = ({ isOpen, onClose }) => {
+export const SearchDrawer: React.FC<SearchDrawerProps> = ({ isOpen, onClose, onSelectProduct }) => {
   const [query, setQuery] = useState('');
 
   if (!isOpen) return null;
 
-  const popularSearches = ['Cat House', 'Orthopedic Bed', 'Interactive Feather Wand', 'Cat Tree Scratching Post', 'Soft Fleece Blanket'];
+  const popularSearches = [
+    { label: 'Cat House', icon: '🏠' },
+    { label: 'Salmon Food', icon: '🐟' },
+    { label: 'Beef Food', icon: '🥩' },
+    { label: 'Orthopedic Bed', icon: '🛏️' },
+    { label: 'Feather Wand', icon: '🪶' },
+    { label: 'Scratching Post', icon: '🐾' },
+  ];
+
+  const searchableProducts = [
+    {
+      data: CAT_FOOD_PRODUCT,
+      keywords: ['cat food', 'salmon', 'cat', 'royal salmon', 'dry food', 'cat house', 'food'],
+      category: 'Cat Nutrition'
+    },
+    {
+      data: DOG_FOOD_PRODUCT,
+      keywords: ['dog food', 'beef', 'dog', 'royal beef', 'grain free', 'food'],
+      category: 'Dog Nutrition'
+    },
+    {
+      data: {
+        id: 'cat-house-1',
+        name: 'Cozy Wool Cat Cave House',
+        price: 'Rp. 385.000',
+        rating: 4.9,
+        reviewsCount: 124,
+        image: ASSETS.bottomRightImage,
+        description: 'Ultra-soft hand-crafted wool cat cave providing a safe, warm retreat for your furry friend.'
+      },
+      keywords: ['cat house', 'house', 'cave', 'bed', 'cat', 'orthopedic bed'],
+      category: 'Cat Furniture'
+    },
+    {
+      data: {
+        id: 'scratch-post-1',
+        name: 'Ergonomic Sisal Scratching Post',
+        price: 'Rp. 229.000',
+        rating: 4.8,
+        reviewsCount: 89,
+        image: ASSETS.bottomLeftImage,
+        description: 'Natural sisal rope scratching post with weighted wooden base to protect your furniture.'
+      },
+      keywords: ['scratching post', 'scratch', 'feather wand', 'cat tree', 'toy'],
+      category: 'Cat Toys & Care'
+    }
+  ];
+
+  const filteredProducts = searchableProducts.filter(item => {
+    if (!query.trim()) return true;
+    const q = query.toLowerCase().trim();
+    return (
+      item.data.name.toLowerCase().includes(q) ||
+      item.category.toLowerCase().includes(q) ||
+      item.keywords.some(k => k.includes(q))
+    );
+  });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
-      <div className="bg-[#EFFDF0] border border-white rounded-3xl max-w-xl w-full p-6 shadow-2xl animate-scale-in text-gray-900 relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-900"
-        >
-          <X className="w-5 h-5" />
-        </button>
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-12 sm:pt-20 p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+      <div className="bg-[#EFFDF0] border border-white/90 rounded-3xl max-w-xl w-full p-4 sm:p-6 shadow-2xl animate-scale-in text-gray-900 relative max-h-[85vh] flex flex-col">
+        <div className="flex items-center justify-between mb-3 shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-[#31b1ba]/15 text-[#31b1ba] flex items-center justify-center">
+              <Search className="w-4 h-4" />
+            </div>
+            <h3 className="font-serif-display text-lg sm:text-xl text-[#1a3d1a]">Search Catalog</h3>
+          </div>
+          <button
+            onClick={onClose}
+            aria-label="Close search"
+            className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-gray-500 hover:text-gray-900 flex items-center justify-center transition-colors shadow-xs"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
 
-        <h3 className="font-serif-display text-xl text-[#1a3d1a] mb-4">Search RoyalPet's Catalog</h3>
-
-        <div className="relative mb-5">
-          <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+        {/* Input Bar */}
+        <div className="relative mb-4 shrink-0">
+          <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search beds, toys, food, brands..."
-            className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-full text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1a3d1a] shadow-xs"
+            className="w-full pl-11 pr-10 py-2.5 sm:py-3 bg-white border border-gray-200 rounded-full text-xs sm:text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#31b1ba] shadow-xs"
             autoFocus
           />
+          {query && (
+            <button
+              onClick={() => setQuery('')}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 rounded-full bg-gray-100 hover:bg-gray-200"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
 
-        <div>
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2.5">Popular Searches</p>
-          <div className="flex flex-wrap gap-2">
-            {popularSearches.map((term) => (
+        {/* Popular Searches Tags */}
+        <div className="mb-4 shrink-0">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              <TrendingUp className="w-3.5 h-3.5 text-[#FF6B00]" />
+              <span>Popular Searches</span>
+            </div>
+            {query && (
               <button
-                key={term}
-                onClick={() => setQuery(term)}
-                className="bg-white hover:bg-[#1a3d1a] hover:text-white px-3.5 py-1.5 rounded-full text-xs font-medium border border-gray-200 text-gray-700 transition-colors"
+                onClick={() => setQuery('')}
+                className="text-[11px] font-medium text-[#31b1ba] hover:underline"
               >
-                {term}
+                Clear filter
               </button>
-            ))}
+            )}
           </div>
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            {popularSearches.map((item) => {
+              const isSelected = query.toLowerCase() === item.label.toLowerCase();
+              return (
+                <button
+                  key={item.label}
+                  onClick={() => setQuery(isSelected ? '' : item.label)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all flex items-center gap-1.5 shadow-2xs ${
+                    isSelected
+                      ? 'bg-[#31b1ba] text-white border-[#31b1ba] font-bold shadow-sm'
+                      : 'bg-white hover:bg-[#31b1ba]/10 hover:border-[#31b1ba]/30 text-gray-700 border-gray-200/80'
+                  }`}
+                >
+                  <span className="text-xs">{item.icon}</span>
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Results List */}
+        <div className="flex-1 overflow-y-auto pr-1 space-y-2.5 no-scrollbar border-t border-gray-200/60 pt-3">
+          <div className="flex items-center justify-between text-xs text-gray-500 font-medium px-1">
+            <span>{query ? `Results for "${query}"` : 'Featured Products'}</span>
+            <span>{filteredProducts.length} item(s)</span>
+          </div>
+
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((item) => (
+              <div
+                key={item.data.id}
+                onClick={() => {
+                  if (onSelectProduct && ('image' in item.data)) {
+                    onSelectProduct(item.data as ProductType);
+                  }
+                }}
+                className="bg-white hover:bg-white/90 p-3 rounded-2xl border border-gray-100 flex items-center justify-between shadow-2xs hover:shadow-md transition-all cursor-pointer group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-gray-50 p-1 flex items-center justify-center shrink-0 border border-gray-100">
+                    <img src={item.data.image} alt={item.data.name} className="w-full h-full object-contain" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold text-[#31b1ba] bg-[#31b1ba]/10 px-2 py-0.5 rounded-md uppercase tracking-wider">
+                      {item.category}
+                    </span>
+                    <p className="text-xs sm:text-sm font-semibold text-gray-900 mt-0.5 line-clamp-1 group-hover:text-[#31b1ba] transition-colors">
+                      {item.data.name}
+                    </p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-xs font-bold text-[#FF6B00]">{item.data.price}</span>
+                      <span className="text-[11px] text-gray-400">★ {item.data.rating}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-7 h-7 rounded-full bg-gray-100 group-hover:bg-[#31b1ba] text-gray-600 group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="py-8 text-center bg-white/50 rounded-2xl border border-dashed border-gray-200">
+              <Sparkles className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+              <p className="text-xs sm:text-sm font-medium text-gray-700">No matching items found</p>
+              <p className="text-[11px] text-gray-500 mt-1">Try clicking one of the popular search tags above!</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

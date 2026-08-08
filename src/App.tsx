@@ -216,6 +216,7 @@ export default function App() {
       <SearchDrawer
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
+        onSelectProduct={handleOpenProduct}
       />
 
       <FavoritesModal

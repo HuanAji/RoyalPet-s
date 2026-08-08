@@ -83,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Right Action Items: Search icon, Let's Try button, and Hamburger Menu for Mobile */}
+        {/* Right Action Items: Search icon, Let's Try button (Desktop), and Hamburger Menu for Mobile */}
         <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
           {/* Search Button */}
           <button
@@ -94,10 +94,10 @@ export const Header: React.FC<HeaderProps> = ({
             <Search className="w-4 h-4" />
           </button>
 
-          {/* Let's Try Rounded Button */}
+          {/* Let's Try Rounded Button - Visible on Desktop (md+) */}
           <button
             onClick={onOpenSearch}
-            className="bg-[#31b1ba] hover:bg-[#22828a] text-[#FFC72C] font-semibold text-xs sm:text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all shadow-sm hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#31b1ba] cursor-pointer whitespace-nowrap"
+            className="hidden md:block bg-[#31b1ba] hover:bg-[#22828a] text-[#FFC72C] font-semibold text-xs sm:text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all shadow-sm hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#31b1ba] cursor-pointer whitespace-nowrap"
           >
             Let's Try
           </button>
@@ -150,15 +150,26 @@ export const Header: React.FC<HeaderProps> = ({
               })}
             </nav>
 
-            <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
+            <div className="pt-3 border-t border-gray-100 flex flex-col gap-2.5">
+              {/* Let's Try button inside Mobile Hamburger Menu */}
               <button
                 onClick={() => {
                   if (onOpenSearch) onOpenSearch();
                   setMobileMenuOpen(false);
                 }}
-                className="w-full bg-[#31b1ba] text-white py-2.5 rounded-xl font-medium text-sm flex items-center justify-center gap-2"
+                className="w-full bg-[#31b1ba] hover:bg-[#22828a] text-[#FFC72C] py-3 rounded-xl font-bold text-sm shadow-md transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Search className="w-4 h-4" />
+                <span>Let's Try</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  if (onOpenSearch) onOpenSearch();
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl font-medium text-xs flex items-center justify-center gap-2"
+              >
+                <Search className="w-3.5 h-3.5" />
                 <span>Search Products</span>
               </button>
             </div>
