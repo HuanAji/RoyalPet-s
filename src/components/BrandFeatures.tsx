@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Truck, Award, PhoneCall, Zap, CheckCircle2, ArrowUpRight } from 'lucide-react';
 
 export const BrandFeatures: React.FC = () => {
+  const [chartKey, setChartKey] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setChartKey(prev => prev + 1);
+    }, 6000); // Perfectly replays the animation every 6 seconds
+    return () => clearInterval(interval);
+  }, []);
   return (
     <section className="w-full py-12 sm:py-16 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden select-none border-t border-[#31b1ba]/5">
       {/* Dynamic Animated Soft Light Background Blurs */}
@@ -62,55 +70,313 @@ export const BrandFeatures: React.FC = () => {
           </p>
         </div>
 
-        {/* Compact Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
-          
+        {/* ─── MOBILE: Stacked List Style ─── */}
+        <div className="flex flex-col gap-4 md:hidden">
+
+          {/* Premium Area Line Chart */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="bg-white rounded-2xl p-5 border border-[#31b1ba]/15 shadow-sm relative overflow-hidden"
+          >
+            {/* Subtle background glow */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#31b1ba]/5 blur-2xl pointer-events-none rounded-full" />
+            
+            {/* Chart Header */}
+            <div className="flex items-center justify-between mb-6 relative z-10">
+              <div>
+                <span className="text-[9px] font-mono font-bold text-[#31b1ba] uppercase tracking-widest block mb-1">Vitality Score</span>
+                <span className="text-2xl font-serif-display text-[#31b1ba] leading-none">+45%</span>
+              </div>
+              <div className="bg-[#FFFDF5] px-2.5 py-1 rounded-full border border-[#FFC72C]/40 flex items-center gap-1.5 shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B00] animate-pulse" />
+                <span className="text-[8px] font-mono text-[#FF6B00] font-bold">30-DAY TREND</span>
+              </div>
+            </div>
+
+            {/* Chart Area */}
+            <div className="relative h-28 w-full px-1">
+              <svg key={chartKey} viewBox="0 0 100 50" className="w-full h-full overflow-visible">
+                <defs>
+                  {/* Area fill gradient */}
+                  <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#31b1ba" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="#31b1ba" stopOpacity="0" />
+                  </linearGradient>
+                  {/* Subtle glow for final point */}
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                {/* Subtle horizontal grid lines */}
+                <line x1="0" y1="50" x2="100" y2="50" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
+                <line x1="0" y1="25" x2="100" y2="25" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
+                <line x1="0" y1="0" x2="100" y2="0" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
+
+                {/* Gradient Area Fill */}
+                <motion.path
+                  d="M 5 40 L 25 32 L 45 35 L 70 20 L 95 5 L 95 50 L 5 50 Z"
+                  fill="url(#areaGradient)"
+                  initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
+                  whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, delay: 0.1, ease: "easeInOut" }}
+                />
+
+                {/* Main Data Line */}
+                <motion.path
+                  d="M 5 40 L 25 32 L 45 35 L 70 20 L 95 5"
+                  fill="none"
+                  stroke="#31b1ba"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, delay: 0.1, ease: "easeInOut" }}
+                />
+                
+                {/* Regular Nodes */}
+                {[
+                  { x: 5, y: 40 },
+                  { x: 25, y: 32 },
+                  { x: 45, y: 35 },
+                  { x: 70, y: 20 },
+                ].map((pt, i) => (
+                  <motion.circle
+                    key={i}
+                    cx={pt.x}
+                    cy={pt.y}
+                    r="2"
+                    fill="white"
+                    stroke="#31b1ba"
+                    strokeWidth="1.5"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 + (i * 0.15), type: "spring" }}
+                  />
+                ))}
+
+                {/* Final Highlighted Node */}
+                <motion.circle
+                  cx="95"
+                  cy="5"
+                  r="3.5"
+                  fill="#FFF"
+                  stroke="#FF6B00"
+                  strokeWidth="2"
+                  filter="url(#glow)"
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 1.1, type: "spring", stiffness: 400 }}
+                />
+              </svg>
+            </div>
+            
+            {/* X-Axis Labels */}
+            <div className="flex justify-between text-[8px] font-mono text-gray-400 mt-3 px-1 font-semibold">
+              <span>DAY 1</span>
+              <span>DAY 15</span>
+              <span>DAY 30</span>
+            </div>
+          </motion.div>
+
+          {/* Stacked feature list */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.08 }}
+            className="bg-white rounded-2xl border border-[#31b1ba]/10 shadow-sm overflow-hidden divide-y divide-gray-100"
+          >
+            {/* Row 1 */}
+            <div className="flex items-center gap-3.5 px-4 py-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#31b1ba]/10 flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-4.5 h-4.5 text-[#31b1ba]" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-[#31b1ba] leading-snug">Human-Grade Protein</p>
+                <p className="text-[10px] text-gray-400 leading-snug mt-0.5 truncate">Zero bone meal, zero preservatives</p>
+              </div>
+              <span className="text-[9px] font-mono font-bold text-[#FF6B00] bg-[#FFF8E7] px-2 py-0.5 rounded-full border border-[#FFC72C]/30 shrink-0">ORGANIC</span>
+            </div>
+
+            {/* Row 2 */}
+            <div className="flex items-center gap-3.5 px-4 py-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#22828a]/15 flex items-center justify-center shrink-0">
+                <Zap className="w-4.5 h-4.5 text-[#22828a]" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-[#31b1ba] leading-snug">100% Grain-Free</p>
+                <p className="text-[10px] text-gray-400 leading-snug mt-0.5 truncate">Omega 3-6-9 · Hypoallergenic</p>
+              </div>
+              <span className="text-[9px] font-mono font-bold text-white bg-[#31b1ba] px-2 py-0.5 rounded-full shrink-0">VITALITY</span>
+            </div>
+
+            {/* Row 3 */}
+            <div className="flex items-center gap-3.5 px-4 py-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FFF8E7] flex items-center justify-center shrink-0">
+                <Truck className="w-4.5 h-4.5 text-[#FF6B00]" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-[#31b1ba] leading-snug">Sub-24h Cold-Chain</p>
+                <p className="text-[10px] text-gray-400 leading-snug mt-0.5 truncate">Free shipping · Live tracking</p>
+              </div>
+              <span className="text-[9px] font-mono font-bold text-[#FF6B00] shrink-0">● 24/7</span>
+            </div>
+
+            {/* Row 4 */}
+            <div className="flex items-center gap-3.5 px-4 py-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FFF8E7] flex items-center justify-center shrink-0">
+                <PhoneCall className="w-4.5 h-4.5 text-[#FF6B00]" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-[#31b1ba] leading-snug">24/7 Vet Hotline</p>
+                <p className="text-[10px] text-gray-400 leading-snug mt-0.5 truncate">30-Day Happiness Guarantee</p>
+              </div>
+              <span className="text-[9px] font-mono font-bold text-white bg-[#FF6B00] px-2 py-0.5 rounded-full shrink-0">FREE</span>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Desktop: original 12-col bento grid — hidden on mobile */}
+        <div className="hidden md:grid md:grid-cols-12 gap-5 items-stretch">
+
+
           {/* Card 1: Grand Arch Pod (Span 7) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="md:col-span-7 bg-white/95 backdrop-blur-xl rounded-t-[50px] sm:rounded-t-[64px] rounded-b-[28px] sm:rounded-b-[36px] p-5 sm:p-6 border border-[#31b1ba]/10 hover:border-[#31b1ba]/30 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden shadow-lg hover:shadow-xl"
+            className="md:col-span-7 bg-white/95 backdrop-blur-xl rounded-t-[64px] rounded-b-[36px] p-6 border border-[#31b1ba]/10 hover:border-[#31b1ba]/30 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden shadow-lg hover:shadow-xl"
           >
             <div className="absolute top-0 right-0 w-48 h-48 bg-[#FFC72C]/15 blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
-
             <div>
               <div className="flex items-center justify-between mb-4">
-                <span className="font-mono text-[10px] uppercase text-[#31b1ba] bg-[#31b1ba]/10 px-3 py-1 rounded-full border border-[#31b1ba]/20 font-bold">
-                  VERIFIED ORGANIC
-                </span>
-                <span className="text-[11px] font-mono text-[#FF6B00] font-bold tracking-wider">
-                  ✦ ORGANIC CERTIFIED
-                </span>
+                <span className="font-mono text-[10px] uppercase text-[#31b1ba] bg-[#31b1ba]/10 px-3 py-1 rounded-full border border-[#31b1ba]/20 font-bold">VERIFIED ORGANIC</span>
+                <span className="text-[11px] font-mono text-[#FF6B00] font-bold tracking-wider">✦ ORGANIC CERTIFIED</span>
               </div>
-
-              {/* Title with Shield Icon */}
               <div className="flex items-start gap-3 mb-2">
-                <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8 text-[#31b1ba] shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-serif-display text-xl sm:text-2xl text-[#31b1ba] leading-tight">
-                  100% Human-Grade Single Protein Standard
-                </h3>
+                <ShieldCheck className="w-8 h-8 text-[#31b1ba] shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
+                <h3 className="font-serif-display text-2xl text-[#31b1ba] leading-tight">100% Human-Grade Single Protein Standard</h3>
               </div>
-
-              <p className="text-xs sm:text-sm text-gray-600 max-w-xl leading-relaxed mb-5 sm:pl-10">
+              <p className="text-sm text-gray-600 max-w-xl leading-relaxed mb-5 pl-10">
                 Formulated alongside top European veterinary nutritionists. Zero bone meal, zero chemical preservatives, and zero artificial flavors.
               </p>
             </div>
+            {/* Desktop Animated Line Chart */}
+            <div className="pt-5 border-t border-[#31b1ba]/10 mt-auto">
+              <div className="flex items-center justify-between mb-3 relative z-10">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-[10px] font-mono font-bold text-[#31b1ba] uppercase tracking-widest block">Vitality Score</span>
+                  <span className="text-xl font-serif-display text-[#31b1ba] leading-none">+45%</span>
+                </div>
+                <div className="bg-[#FFFDF5] px-2.5 py-1 rounded-full border border-[#FFC72C]/40 flex items-center gap-1.5 shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B00] animate-pulse" />
+                  <span className="text-[9px] font-mono text-[#FF6B00] font-bold">30-DAY TREND</span>
+                </div>
+              </div>
 
-            {/* Organic Capsule Stat Badges */}
-            <div className="grid grid-cols-3 gap-2.5 pt-4 border-t border-gray-100 text-center">
-              <div className="bg-[#FFFDF5] py-2.5 px-2 rounded-full border border-[#31b1ba]/10 shadow-2xs">
-                <span className="block font-mono text-base sm:text-lg font-black text-[#31b1ba]">99.8%</span>
-                <span className="text-[9px] sm:text-[10px] text-gray-500 uppercase font-mono font-semibold">Digestion</span>
+              <div className="relative h-24 w-full">
+                <svg key={chartKey} viewBox="0 0 150 40" className="w-full h-full overflow-visible">
+                  <defs>
+                    <linearGradient id="areaGradientDesktop" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#31b1ba" stopOpacity="0.2" />
+                      <stop offset="100%" stopColor="#31b1ba" stopOpacity="0" />
+                    </linearGradient>
+                    <filter id="glowDesktop">
+                      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+
+                  {/* Horizontal grid lines */}
+                  <line x1="0" y1="40" x2="150" y2="40" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
+                  <line x1="0" y1="20" x2="150" y2="20" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
+                  <line x1="0" y1="0" x2="150" y2="0" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
+
+                  {/* Gradient Area Fill */}
+                  <motion.path
+                    d="M 5 32 L 35 25 L 75 28 L 115 15 L 145 5 L 145 40 L 5 40 Z"
+                    fill="url(#areaGradientDesktop)"
+                    initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
+                    whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, delay: 0.1, ease: "easeInOut" }}
+                  />
+
+                  {/* Main Data Line */}
+                  <motion.path
+                    d="M 5 32 L 35 25 L 75 28 L 115 15 L 145 5"
+                    fill="none"
+                    stroke="#31b1ba"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, delay: 0.1, ease: "easeInOut" }}
+                  />
+                  
+                  {/* Regular Nodes */}
+                  {[
+                    { x: 5, y: 32 },
+                    { x: 35, y: 25 },
+                    { x: 75, y: 28 },
+                    { x: 115, y: 15 },
+                  ].map((pt, i) => (
+                    <motion.circle
+                      key={i}
+                      cx={pt.x}
+                      cy={pt.y}
+                      r="2"
+                      fill="white"
+                      stroke="#31b1ba"
+                      strokeWidth="1.5"
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 + (i * 0.15), type: "spring" }}
+                    />
+                  ))}
+
+                  {/* Final Highlighted Node */}
+                  <motion.circle
+                    cx="145"
+                    cy="5"
+                    r="3.5"
+                    fill="#FFF"
+                    stroke="#FF6B00"
+                    strokeWidth="2"
+                    filter="url(#glowDesktop)"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 1.1, type: "spring", stiffness: 400 }}
+                  />
+                </svg>
               </div>
-              <div className="bg-[#FFFDF5] py-2.5 px-2 rounded-full border border-[#31b1ba]/10 shadow-2xs">
-                <span className="block font-mono text-base sm:text-lg font-black text-[#FF6B00]">0%</span>
-                <span className="text-[9px] sm:text-[10px] text-gray-500 uppercase font-mono font-semibold">Fillers</span>
-              </div>
-              <div className="bg-[#FFFDF5] py-2.5 px-2 rounded-full border border-[#31b1ba]/10 shadow-2xs">
-                <span className="block font-mono text-base sm:text-lg font-black text-[#31b1ba]">#1</span>
-                <span className="text-[9px] sm:text-[10px] text-gray-500 uppercase font-mono font-semibold">Vet Choice</span>
+              
+              {/* X-Axis Labels */}
+              <div className="flex justify-between text-[9px] font-mono text-gray-400 mt-2 px-1 font-semibold">
+                <span>DAY 1</span>
+                <span>DAY 15</span>
+                <span>DAY 30</span>
               </div>
             </div>
           </motion.div>
@@ -121,36 +387,24 @@ export const BrandFeatures: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.08 }}
-            className="md:col-span-5 bg-gradient-to-br from-[#31b1ba] to-[#22828a] text-white rounded-tr-[70px] sm:rounded-tr-[90px] rounded-tl-[28px] rounded-b-[36px] p-5 sm:p-6 border border-white/10 hover:border-[#FFC72C]/50 transition-all duration-300 flex flex-col justify-between relative group shadow-lg"
+            className="md:col-span-5 bg-gradient-to-br from-[#31b1ba] to-[#22828a] text-white rounded-tr-[90px] rounded-tl-[28px] rounded-b-[36px] p-6 border border-white/10 hover:border-[#FFC72C]/50 transition-all duration-300 flex flex-col justify-between relative group shadow-lg"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-full backdrop-blur-md">
                   <Zap className="w-3.5 h-3.5 text-[#FFC72C]" />
-                  <span className="text-[11px] font-mono text-[#FFC72C] font-bold">SPEED & VITALITY</span>
+                  <span className="text-[11px] font-mono text-[#FFC72C] font-bold">SPEED &amp; VITALITY</span>
                 </div>
                 <span className="text-[10px] font-mono text-amber-200/70">[ HYPOALLERGENIC ]</span>
               </div>
-
               <div className="my-3">
-                <span className="font-serif-display text-4xl sm:text-5xl text-[#FFC72C] block leading-none tracking-tight">
-                  100%
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-amber-100 block mt-2 font-semibold">
-                  GRAIN-FREE & HYPOALLERGENIC
-                </span>
+                <span className="font-serif-display text-5xl text-[#FFC72C] block leading-none tracking-tight">100%</span>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-amber-100 block mt-2 font-semibold">GRAIN-FREE &amp; HYPOALLERGENIC</span>
               </div>
-
-              <p className="text-xs text-blue-100/80 leading-relaxed">
-                Protects sensitive stomachs and eliminates skin itching with active omega 3-6 fatty acids.
-              </p>
+              <p className="text-xs text-blue-100/80 leading-relaxed">Protects sensitive stomachs and eliminates skin itching with active omega 3-6 fatty acids.</p>
             </div>
-
             <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-[#FFC72C] font-mono">
-              <span className="flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#FFC72C]" />
-                Lab Tested Batch #2026
-              </span>
+              <span className="flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-[#FFC72C]" />Lab Tested Batch #2026</span>
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </div>
           </motion.div>
@@ -161,27 +415,20 @@ export const BrandFeatures: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.16 }}
-            className="md:col-span-6 bg-white/95 backdrop-blur-xl rounded-tl-[50px] rounded-br-[50px] rounded-tr-[24px] rounded-bl-[24px] p-5 sm:p-6 border border-[#31b1ba]/10 hover:border-[#31b1ba]/30 transition-all duration-300 flex flex-col justify-between group shadow-lg hover:shadow-xl"
+            className="md:col-span-6 bg-white/95 backdrop-blur-xl rounded-tl-[50px] rounded-br-[50px] rounded-tr-[24px] rounded-bl-[24px] p-6 border border-[#31b1ba]/10 hover:border-[#31b1ba]/30 transition-all duration-300 flex flex-col justify-between group shadow-lg hover:shadow-xl"
           >
             <div>
               <div className="flex items-center justify-between mb-3">
-                <span className="bg-[#31b1ba] text-[#FFC72C] text-[10px] font-mono font-bold px-3 py-1 rounded-full shadow-2xs">
-                  EXPRESS DOORSTEP
-                </span>
+                <span className="bg-[#31b1ba] text-[#FFC72C] text-[10px] font-mono font-bold px-3 py-1 rounded-full shadow-2xs">EXPRESS DOORSTEP</span>
               </div>
-
               <div className="flex items-start gap-3 mb-2">
                 <Truck className="w-6 h-6 text-[#31b1ba] shrink-0 mt-0.5 group-hover:translate-x-1 transition-transform" />
-                <h3 className="font-serif-display text-lg sm:text-xl text-[#31b1ba] leading-tight">
-                  Sub-24 Hours Fresh Cold-Chain
-                </h3>
+                <h3 className="font-serif-display text-xl text-[#31b1ba] leading-tight">Sub-24 Hours Fresh Cold-Chain</h3>
               </div>
-
-              <p className="text-xs text-gray-600 leading-relaxed mb-4 sm:pl-9">
-                Insulated thermal packaging guarantees kitchen-fresh quality upon arrival at your doorstep. Free shipping on orders over Rp 150.000.
+              <p className="text-xs text-gray-600 leading-relaxed mb-4 pl-9">
+                Insulated thermal packaging guarantees kitchen-fresh quality upon arrival. Free shipping on orders over Rp 150.000.
               </p>
             </div>
-
             <div className="bg-[#FFFDF5] px-3.5 py-2.5 rounded-full border border-[#31b1ba]/10 flex items-center justify-between text-[11px] font-mono shadow-2xs">
               <span className="text-gray-600 font-medium">Live Delivery Tracking</span>
               <span className="text-[#FF6B00] font-bold">● ACTIVE 24/7</span>
@@ -194,27 +441,20 @@ export const BrandFeatures: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.24 }}
-            className="md:col-span-6 bg-white/95 backdrop-blur-xl rounded-tr-[60px] rounded-bl-[60px] rounded-tl-[24px] rounded-br-[24px] p-5 sm:p-6 border border-[#31b1ba]/10 hover:border-[#31b1ba]/30 transition-all duration-300 flex flex-col justify-between group shadow-lg hover:shadow-xl"
+            className="md:col-span-6 bg-white/95 backdrop-blur-xl rounded-tr-[60px] rounded-bl-[60px] rounded-tl-[24px] rounded-br-[24px] p-6 border border-[#31b1ba]/10 hover:border-[#31b1ba]/30 transition-all duration-300 flex flex-col justify-between group shadow-lg hover:shadow-xl"
           >
             <div>
               <div className="flex items-center justify-between mb-3">
-                <span className="bg-[#FF6B00] text-white text-[10px] font-mono font-bold px-3 py-1 rounded-full shadow-2xs">
-                  FREE TELEHEALTH
-                </span>
+                <span className="bg-[#FF6B00] text-white text-[10px] font-mono font-bold px-3 py-1 rounded-full shadow-2xs">FREE TELEHEALTH</span>
               </div>
-
               <div className="flex items-start gap-3 mb-2">
                 <PhoneCall className="w-6 h-6 text-[#31b1ba] shrink-0 mt-0.5 group-hover:rotate-12 transition-transform" />
-                <h3 className="font-serif-display text-lg sm:text-xl text-[#31b1ba] leading-tight">
-                  24/7 Royal Vet Hotline & Consults
-                </h3>
+                <h3 className="font-serif-display text-xl text-[#31b1ba] leading-tight">24/7 Royal Vet Hotline &amp; Consults</h3>
               </div>
-
-              <p className="text-xs text-gray-600 leading-relaxed mb-4 sm:pl-9">
+              <p className="text-xs text-gray-600 leading-relaxed mb-4 pl-9">
                 Direct access to certified veterinary dietitians to customize your pet's meal plan, portion control, and supplement schedule.
               </p>
             </div>
-
             <div className="bg-[#FFF8E7] px-3.5 py-2.5 rounded-full border border-[#FFC72C]/40 flex items-center justify-between text-[11px] font-mono text-[#31b1ba]">
               <span>30-Day Palate Happiness Guarantee</span>
               <span className="underline font-bold cursor-pointer hover:text-[#FF6B00]">Learn More</span>
