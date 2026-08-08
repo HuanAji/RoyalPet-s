@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Sparkles, ArrowRight } from 'lucide-react';
 
@@ -56,12 +56,22 @@ const CATEGORIES = [
 
 export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCategory }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Default active (front) card is the center card (index 2 out of 5)
   const activeIndex = hoveredIndex !== null ? hoveredIndex : 2;
 
   return (
-    <section className="w-full py-16 sm:py-24 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden">
+    <section className="w-full pt-4 pb-4 sm:pt-16 sm:pb-16 md:pt-20 md:pb-20 px-1 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden">
       {/* Decorative background glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFF8E7] rounded-full blur-3xl pointer-events-none opacity-80 -mr-20 -mt-20" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#E0F2FE] rounded-full blur-3xl pointer-events-none opacity-50 -ml-20 -mb-20" />
@@ -69,28 +79,28 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header Section */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center text-center mb-10 sm:mb-14 gap-3 max-w-2xl mx-auto"
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center text-center mb-3 sm:mb-10 md:mb-12 gap-1.5 sm:gap-3 max-w-2xl mx-auto px-2"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] text-[#31b1ba] text-xs font-semibold tracking-wide border border-[#FFC72C]/40">
-            <Sparkles className="w-3.5 h-3.5 text-[#FF6B00]" />
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#FFF8E7] text-[#31b1ba] text-[10px] sm:text-xs font-semibold tracking-wide border border-[#FFC72C]/40">
+            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#FF6B00]" />
             <span>Curated Collections</span>
           </div>
-          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl text-[#31b1ba] tracking-tight leading-tight">
+          <h2 className="font-serif-display text-2xl sm:text-4xl md:text-5xl text-[#31b1ba] tracking-tight leading-tight">
             Explore Royal Categories
           </h2>
-          <p className="text-gray-600 text-sm sm:text-base leading-relaxed mt-1">
+          <p className="text-gray-600 text-xs sm:text-base leading-relaxed mt-0.5 sm:mt-1">
             Formulated by animal nutritionists and crafted with 100% natural ingredients for every stage of your pet's life.
           </p>
         </motion.div>
 
-        {/* 3D Overlapping Centered Card Stack Container */}
-        <div className="w-full overflow-x-auto sm:overflow-visible pb-12 pt-4 px-2">
+        {/* Responsive Card Fan Container */}
+        <div className="w-full flex items-center justify-center overflow-hidden py-1 sm:py-4 px-1">
           <div
-            className="flex items-center justify-center min-w-max sm:min-w-0 min-h-[440px]"
+            className="flex items-center justify-center min-h-[220px] min-[370px]:min-h-[235px] sm:min-h-[420px] w-full max-w-full"
             onMouseLeave={() => setHoveredIndex(null)}
           >
             {CATEGORIES.map((cat, idx) => {
@@ -102,20 +112,26 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
               const zIndex = 30 - absDist * 5;
               
               // Scale: active card is larger
-              const scale = isHovered ? 1.08 : dist === 0 ? 1.05 : Math.max(0.88, 1.0 - absDist * 0.05);
+              const scale = isHovered 
+                ? (isMobile ? 1.06 : 1.08) 
+                : dist === 0 
+                ? (isMobile ? 1.04 : 1.05) 
+                : Math.max(0.85, 0.96 - absDist * 0.05);
               
-              // Vertical shift: hovered or center card lifts up slightly
-              const translateY = isHovered ? '-18px' : dist === 0 ? '-8px' : `${absDist * 4}px`;
+              // Vertical shift
+              const translateY = isHovered 
+                ? (isMobile ? '-8px' : '-18px') 
+                : dist === 0 
+                ? (isMobile ? '-4px' : '-8px') 
+                : `${absDist * (isMobile ? 2 : 4)}px`;
               
-              // Horizontal shift: fan out cards cleanly to the left and right without any 3D tilting
+              // Horizontal shift
               let translateX = '0px';
 
               if (dist < 0) {
-                // Cards to the left of active card
-                translateX = `${dist * 15}px`;
+                translateX = `${dist * (isMobile ? 2 : 12)}px`;
               } else if (dist > 0) {
-                // Cards to the right of active card shift right to reveal card previews
-                translateX = `${dist * 80}px`;
+                translateX = `${dist * (isMobile ? 4 : 22)}px`;
               }
 
               return (
@@ -124,46 +140,46 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
                   style={{
                     zIndex,
                     transform: `scale(${scale}) translate3d(${translateX}, ${translateY}, 0)`,
-                    transition: 'all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
                   }}
                   onMouseEnter={() => setHoveredIndex(idx)}
                   onClick={() => onSelectCategory && onSelectCategory(cat.id)}
-                  className={`group cursor-pointer flex flex-col rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-white border border-gray-200/80 w-[250px] sm:w-[270px] md:w-[285px] flex-shrink-0 relative transition-all duration-300 ${
-                    idx > 0 ? '-ml-20 sm:-ml-24 md:-ml-32' : ''
+                  className={`group cursor-pointer flex flex-col rounded-xl min-[380px]:rounded-2xl sm:rounded-3xl p-2 min-[380px]:p-2.5 sm:p-5 bg-white border border-gray-200/80 w-[108px] min-[370px]:w-[120px] min-[420px]:w-[135px] sm:w-[240px] md:w-[270px] lg:w-[285px] flex-shrink-0 relative transition-all duration-300 ${
+                    idx > 0 ? '-ml-12 min-[370px]:-ml-14 min-[420px]:-ml-16 sm:-ml-20 md:-ml-28 lg:-ml-32' : ''
                   } ${
                     dist === 0
-                      ? 'shadow-2xl border-[#31b1ba]/40 ring-2 ring-[#FFC72C]'
-                      : 'shadow-lg hover:shadow-xl'
+                      ? 'shadow-xl border-[#31b1ba]/50 ring-2 ring-[#FFC72C]'
+                      : 'shadow-md hover:shadow-lg'
                   }`}
                 >
                   {/* Image Container */}
-                  <div className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden mb-3.5 bg-gray-100">
+                  <div className="relative aspect-[4/3] rounded-lg min-[380px]:rounded-xl sm:rounded-2xl overflow-hidden mb-1.5 sm:mb-3.5 bg-gray-100">
                     <img
                       src={cat.image}
                       alt={cat.title}
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                     />
-                    <span className="absolute top-2.5 left-2.5 bg-white/95 backdrop-blur-md text-[#31b1ba] text-[11px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full shadow-sm border border-white/60">
+                    <span className="absolute top-1 left-1 sm:top-2.5 sm:left-2.5 bg-white/95 backdrop-blur-md text-[#31b1ba] text-[7px] min-[370px]:text-[8px] sm:text-xs font-bold px-1.5 py-0.5 rounded-full shadow-2xs border border-white/60 truncate max-w-[85%]">
                       {cat.tag}
                     </span>
-                    <span className="absolute bottom-2.5 right-2.5 bg-[#31b1ba] text-[#FFC72C] p-2 rounded-full shadow-md transition-transform duration-300 group-hover:scale-110">
-                      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    <span className="absolute bottom-1 right-1 sm:bottom-2.5 sm:right-2.5 bg-[#31b1ba] text-[#FFC72C] p-0.5 min-[380px]:p-1 sm:p-2 rounded-full shadow-md transition-transform duration-300 group-hover:scale-110">
+                      <ArrowRight className="w-2.5 h-2.5 sm:w-4 sm:h-4" />
                     </span>
                   </div>
 
                   {/* Content */}
-                  <div className="flex-1 flex flex-col">
-                    <div className="flex items-center justify-between mb-1">
-                      <h3 className="font-serif-display text-base sm:text-lg text-[#31b1ba] group-hover:text-[#FF6B00] transition-colors leading-snug">
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-serif-display text-[10px] min-[370px]:text-[11px] sm:text-base md:text-lg text-[#31b1ba] group-hover:text-[#FF6B00] transition-colors leading-tight font-bold line-clamp-1">
                         {cat.title}
                       </h3>
+                      <p className="text-[8px] min-[370px]:text-[9px] sm:text-xs text-gray-500 font-medium mt-0.5">{cat.count}</p>
                     </div>
-                    <p className="text-xs text-gray-500 font-medium mb-1.5">{cat.count}</p>
                     
                     {/* Color Line Separator */}
-                    <div className={`w-full h-1 rounded-full my-2 ${cat.lineColor} opacity-80 group-hover:opacity-100 transition-opacity`} />
+                    <div className={`w-full h-0.5 sm:h-1 rounded-full my-1 sm:my-2 ${cat.lineColor} opacity-80 group-hover:opacity-100 transition-opacity`} />
 
-                    <p className="text-xs text-gray-600 leading-relaxed mt-auto line-clamp-2">
+                    <p className="text-[8px] min-[370px]:text-[9px] sm:text-xs text-gray-600 leading-tight line-clamp-2">
                       {cat.description}
                     </p>
                   </div>
