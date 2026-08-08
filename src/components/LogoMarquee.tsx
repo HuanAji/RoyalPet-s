@@ -23,7 +23,7 @@ export const LogoMarquee: React.FC = () => {
           animate={{ x: ['0%', '-50%'] }}
           transition={{
             repeat: Infinity,
-            duration: 22,
+            duration: 40,
             ease: 'linear',
           }}
           className="flex items-center whitespace-nowrap gap-8 sm:gap-16 shrink-0"

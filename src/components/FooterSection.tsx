@@ -39,7 +39,7 @@ export const FooterSection: React.FC = () => {
             <h3 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
               Get 15% Off Your First Order
             </h3>
-            <p className="text-blue-100/70 text-xs sm:text-sm mt-2 leading-relaxed">
+            <p className="text-white/90 text-xs sm:text-sm mt-2 leading-relaxed">
               Subscribe to receive exclusive nutrition tips, new product launches, and secret VIP discounts directly to your inbox.
             </p>
           </div>
@@ -47,14 +47,14 @@ export const FooterSection: React.FC = () => {
           <form onSubmit={handleSubscribe} className="w-full md:w-auto min-w-[300px]">
             <div className="flex flex-col sm:flex-row gap-2.5">
               <div className="relative flex-1">
-                <Mail className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-blue-200/60" />
+                <Mail className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-white/60" />
                 <input
                   type="email"
                   required
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-blue-200/50 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#FFC72C]/50"
+                  className="w-full pl-11 pr-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/70 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#FFC72C]/50"
                 />
               </div>
               <button
@@ -79,10 +79,10 @@ export const FooterSection: React.FC = () => {
       </div>
 
       {/* Main Footer Links */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10 text-xs sm:text-sm text-blue-100/70">
+      <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-10 lg:gap-10 pb-12 border-b border-white/10 text-xs sm:text-sm text-blue-100/70">
         {/* Brand Info */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center gap-2.5">
+        <div className="col-span-2 lg:col-span-2 space-y-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <div className="flex items-center gap-2.5 justify-center lg:justify-start">
             <svg
               viewBox="0 0 100 100"
               fill="currentColor"
@@ -105,10 +105,10 @@ export const FooterSection: React.FC = () => {
               RoyalPet's
             </span>
           </div>
-          <p className="max-w-sm leading-relaxed text-blue-100/60">
+          <p className="max-w-sm leading-relaxed text-blue-100/60 lg:pr-4 mx-auto lg:mx-0">
             Premium, organic pet nutrition formulated by expert veterinary scientists. Delivering healthier, happier lives for your royalty companions.
           </p>
-          <div className="flex items-center gap-3 pt-2">
+          <div className="flex items-center gap-3 pt-2 justify-center lg:justify-start">
             <a href="#" aria-label="Instagram" className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors">
               <Instagram className="w-4 h-4" />
             </a>
@@ -122,7 +122,7 @@ export const FooterSection: React.FC = () => {
         </div>
 
         {/* Column 1: Shop */}
-        <div>
+        <div className="text-center lg:text-left">
           <h4 className="font-serif-display text-white text-base font-bold mb-4">Explore Shop</h4>
           <ul className="space-y-2.5">
             <li><a href="#" className="hover:text-white transition-colors">Cat Kibble & Wet Food</a></li>
@@ -134,7 +134,7 @@ export const FooterSection: React.FC = () => {
         </div>
 
         {/* Column 2: Care & Advice */}
-        <div>
+        <div className="text-center lg:text-left">
           <h4 className="font-serif-display text-white text-base font-bold mb-4">Pet Care</h4>
           <ul className="space-y-2.5">
             <li><a href="#" className="hover:text-white transition-colors">Calorie Calculator</a></li>
@@ -146,7 +146,7 @@ export const FooterSection: React.FC = () => {
         </div>
 
         {/* Column 3: Company */}
-        <div>
+        <div className="col-span-2 lg:col-span-1 text-center lg:text-left">
           <h4 className="font-serif-display text-white text-base font-bold mb-4">RoyalPet's</h4>
           <ul className="space-y-2.5">
             <li><a href="#" className="hover:text-white transition-colors">Our Story & Mission</a></li>
@@ -159,11 +159,8 @@ export const FooterSection: React.FC = () => {
       </div>
 
       {/* Copyright */}
-      <div className="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-blue-100/50">
+      <div className="max-w-7xl mx-auto pt-6 flex items-center justify-center text-center text-xs text-blue-100/50">
         <p>© {new Date().getFullYear()} RoyalPet's Indonesia. All rights reserved.</p>
-        <p className="flex items-center gap-1">
-          Crafted with <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" /> for healthy pets everywhere.
-        </p>
       </div>
     </footer>
   );
