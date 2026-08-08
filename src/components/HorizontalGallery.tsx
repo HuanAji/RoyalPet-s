@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'motion/react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate, AnimatePresence } from 'motion/react';
 import { Sparkles, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, Maximize2, X, RotateCcw, ShieldCheck, Zap } from 'lucide-react';
 import { SignatureAccent } from './SignatureAccent';
 
@@ -97,7 +97,11 @@ const LandoNorrisCard: React.FC<LandoNorrisCardProps> = ({ item, idx, onOpenInsp
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-14, 14]), { stiffness: 200, damping: 25 });
 
   const [isHovered, setIsHovered] = useState(false);
-  const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50 });
+
+  // High-performance Framer Motion template for the glow (no React re-renders)
+  const spotX = useTransform(mouseX, [-0.5, 0.5], [0, 100]);
+  const spotY = useTransform(mouseY, [-0.5, 0.5], [0, 100]);
+  const spotlightBackground = useMotionTemplate`radial-gradient(400px circle at ${spotX}% ${spotY}%, rgba(255, 199, 44, 0.25), transparent 80%)`;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -113,11 +117,6 @@ const LandoNorrisCard: React.FC<LandoNorrisCardProps> = ({ item, idx, onOpenInsp
 
     x.set(xPct);
     y.set(yPct);
-
-    setSpotlightPos({
-      x: (mouseXPos / width) * 100,
-      y: (mouseYPos / height) * 100,
-    });
   };
 
   const handleMouseEnter = () => {
@@ -156,11 +155,11 @@ const LandoNorrisCard: React.FC<LandoNorrisCardProps> = ({ item, idx, onOpenInsp
         className="w-[290px] sm:w-[360px] bg-[#144d52]/90 rounded-[32px] p-5 sm:p-6 border border-white/20 hover:border-[#FFC72C] transition-colors duration-300 group flex flex-col justify-between relative cursor-pointer shadow-2xl overflow-hidden select-none"
       >
         {/* Lando Norris Neon Glow Reflection Follower */}
-        <div
+        <motion.div
           className="pointer-events-none absolute inset-0 transition-opacity duration-300 z-10"
           style={{
             opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(400px circle at ${spotlightPos.x}% ${spotlightPos.y}%, rgba(255, 199, 44, 0.25), transparent 80%)`,
+            background: spotlightBackground,
           }}
         />
 
@@ -254,24 +253,33 @@ interface InspectModalProps {
 
 const LandoNorrisInspectModal: React.FC<InspectModalProps> = ({ item, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
+  
+  // Use MotionValues for 60fps performance without React re-renders
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const springRotateX = useSpring(rotateX, { stiffness: 300, damping: 20 });
+  const springRotateY = useSpring(rotateY, { stiffness: 300, damping: 20 });
+  
   const [isDragging, setIsDragging] = useState(false);
-  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  const startPos = useRef({ x: 0, y: 0 });
 
   if (!item) return null;
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
-    setStartPos({ x: e.clientX - rotateY, y: e.clientY - rotateX });
+    // Fixed math to maintain current rotation accurately when starting a new drag
+    startPos.current = { 
+      x: e.clientX - rotateY.get() * 2, 
+      y: e.clientY + rotateX.get() * 2 
+    };
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return;
-    const deltaX = e.clientX - startPos.x;
-    const deltaY = e.clientY - startPos.y;
-    setRotateY(deltaX * 0.5);
-    setRotateX(-deltaY * 0.5);
+    const deltaX = e.clientX - startPos.current.x;
+    const deltaY = e.clientY - startPos.current.y;
+    rotateY.set(deltaX * 0.5);
+    rotateX.set(-deltaY * 0.5);
   };
 
   const handleMouseUp = () => {
@@ -279,12 +287,12 @@ const LandoNorrisInspectModal: React.FC<InspectModalProps> = ({ item, onClose })
   };
 
   const resetRotation = () => {
-    setRotateX(0);
-    setRotateY(0);
+    rotateX.set(0);
+    rotateY.set(0);
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -320,11 +328,10 @@ const LandoNorrisInspectModal: React.FC<InspectModalProps> = ({ item, onClose })
               >
                 <motion.div
                   style={{
-                    rotateX,
-                    rotateY,
+                    rotateX: springRotateX,
+                    rotateY: springRotateY,
                     transformStyle: 'preserve-3d',
                   }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                   className="w-full h-full rounded-3xl overflow-hidden border-2 border-[#FFC72C]/60 shadow-2xl relative bg-black/80"
                 >
                   <img
@@ -417,22 +424,18 @@ export const HorizontalGallery: React.FC = () => {
   const scrollableRef = useRef<HTMLDivElement>(null);
   const [inspectItem, setInspectItem] = useState<GalleryItem | null>(null);
 
-  // Scroll-driven section overlap transform (Lando Norris style)
+  // Scroll-driven section overlap transform
+  // offset: starts when section bottom enters viewport, ends when section top nears viewport top
   const { scrollYProgress: sectionScrollProgress } = useScroll({
     target: containerRef,
-    offset: ['start 85%', 'start 10%'],
+    offset: ['start end', 'start 10%'],
   });
 
-  // Smooth GPU-accelerated vertical slide to overlap preceding section
+  // To make the overlap very pronounced (like the previous section is pinned),
+  // we use a large negative margin (-mt-[480px]) and start the Y transform at 480.
+  // This means it starts perfectly adjacent to the previous section, and slides up to -80px,
+  // traveling 560px *faster* than the normal scroll speed.
   const sectionY = useTransform(sectionScrollProgress, [0, 1], [480, -80]);
-
-  // Horizontal scroll transform for cards
-  const { scrollYProgress: cardScrollProgress } = useScroll({
-    target: scrollableRef,
-    offset: ['start center', 'end start'],
-  });
-
-  const xTransform = useTransform(cardScrollProgress, [0, 0.2, 0.85, 1], ['0%', '0%', '-45%', '-45%']);
 
   const handleManualScroll = (direction: 'left' | 'right') => {
     if (scrollableRef.current) {
@@ -500,10 +503,8 @@ export const HorizontalGallery: React.FC = () => {
         ref={scrollableRef}
         className="relative w-full overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden scroll-smooth px-4 sm:px-8 md:px-12 z-10"
       >
-        <motion.div
-          style={{ x: xTransform }}
-          className="flex gap-6 sm:gap-8 pb-8 min-w-max"
-        >
+        {/* Native scroll only — no conflicting motion x-transform */}
+        <div className="flex gap-6 sm:gap-8 pb-8 min-w-max">
           {GALLERY_ITEMS.map((item, idx) => (
             <LandoNorrisCard
               key={item.id}
@@ -512,7 +513,7 @@ export const HorizontalGallery: React.FC = () => {
               onOpenInspect={(itemToInspect) => setInspectItem(itemToInspect)}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* 3D Spotlight Inspector Modal */}
