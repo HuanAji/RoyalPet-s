@@ -5,7 +5,7 @@ import { Star, Quote, CheckCircle2, Heart, ChevronLeft, ChevronRight } from 'luc
 const REVIEWS = [
   {
     id: 1,
-    name: 'Amanda & Milo',
+    name: 'Clarentia Adeline',
     petType: 'Golden Retriever (2 yrs)',
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200',
@@ -14,8 +14,8 @@ const REVIEWS = [
   },
   {
     id: 2,
-    name: 'Budi & Luna',
-    petType: 'British Shorthair (3 yrs)',
+    name: 'Joseph Nathanael',
+    petType: 'Persia Cat (3 yrs)',
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200',
     petImage: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600',
@@ -32,7 +32,7 @@ const REVIEWS = [
   },
   {
     id: 4,
-    name: 'Daniel & Bella',
+    name: 'Daniel W.',
     petType: 'Maine Coon (4 yrs)',
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200',
@@ -50,7 +50,7 @@ const REVIEWS = [
   },
   {
     id: 6,
-    name: 'Fikri & Mochi',
+    name: 'Joshua Zirk',
     petType: 'Scottish Fold (1.5 yrs)',
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200',
