@@ -153,7 +153,7 @@ const LandoNorrisCard: React.FC<LandoNorrisCardProps> = ({ item, idx, onOpenInsp
           scale: isHovered ? 1.03 : 1,
         }}
         transition={{ duration: 0.3 }}
-        className="w-[290px] sm:w-[360px] bg-white/10 backdrop-blur-2xl rounded-[32px] p-5 sm:p-6 border border-white/20 hover:border-[#FFC72C] transition-colors duration-300 group flex flex-col justify-between relative cursor-pointer shadow-2xl overflow-hidden select-none"
+        className="w-[290px] sm:w-[360px] bg-[#144d52]/90 rounded-[32px] p-5 sm:p-6 border border-white/20 hover:border-[#FFC72C] transition-colors duration-300 group flex flex-col justify-between relative cursor-pointer shadow-2xl overflow-hidden select-none"
       >
         {/* Lando Norris Neon Glow Reflection Follower */}
         <div
@@ -417,6 +417,15 @@ export const HorizontalGallery: React.FC = () => {
   const scrollableRef = useRef<HTMLDivElement>(null);
   const [inspectItem, setInspectItem] = useState<GalleryItem | null>(null);
 
+  // Scroll-driven section overlap transform (Lando Norris style)
+  const { scrollYProgress: sectionScrollProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 85%', 'start 10%'],
+  });
+
+  // Smooth GPU-accelerated vertical slide to overlap preceding section
+  const sectionY = useTransform(sectionScrollProgress, [0, 1], [480, -80]);
+
   // Horizontal scroll transform for cards
   const { scrollYProgress: cardScrollProgress } = useScroll({
     target: scrollableRef,
@@ -433,9 +442,13 @@ export const HorizontalGallery: React.FC = () => {
   };
 
   return (
-    <section
+    <motion.section
       ref={containerRef}
-      className="w-full bg-[#22828a] text-white py-20 sm:py-28 relative overflow-hidden select-none"
+      style={{
+        y: sectionY,
+        willChange: 'transform',
+      }}
+      className="w-full bg-[#22828a] text-white py-20 sm:py-28 relative overflow-hidden select-none z-20 rounded-none -mt-[480px] border-t border-white/20 shadow-2xl"
     >
       {/* Dynamic Background Glows */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#FFC72C]/10 blur-[140px] rounded-full pointer-events-none" />
@@ -507,7 +520,7 @@ export const HorizontalGallery: React.FC = () => {
         item={inspectItem}
         onClose={() => setInspectItem(null)}
       />
-    </section>
+    </motion.section>
   );
 };
 
