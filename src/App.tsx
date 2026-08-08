@@ -6,8 +6,6 @@ import { LogoMarquee } from './components/LogoMarquee';
 import { HorizontalGallery } from './components/HorizontalGallery';
 import { Header } from './components/Header';
 import { HeroDesktop } from './components/HeroDesktop';
-import { HeroTablet } from './components/HeroTablet';
-import { HeroMobile } from './components/HeroMobile';
 import { CategoryShowcase } from './components/CategoryShowcase';
 import { FeaturedProducts } from './components/FeaturedProducts';
 import { BrandFeatures } from './components/BrandFeatures';
@@ -136,21 +134,8 @@ export default function App() {
           {/* Main Content Flow */}
           <main className="flex-1 flex flex-col w-full">
             {/* 1. Hero Viewport Area */}
-            <section className="relative w-full h-[calc(100vh-64px)] min-h-[580px] max-h-[920px] overflow-hidden flex flex-col justify-between">
-              {/* Desktop Hero Layout (lg+) */}
+            <section className="relative w-full h-[270px] min-[380px]:h-[310px] min-[440px]:h-[350px] sm:h-[450px] md:h-[520px] lg:h-[calc(100vh-64px)] lg:min-h-[580px] lg:max-h-[920px] overflow-hidden flex flex-col justify-between">
               <HeroDesktop
-                onSelectProduct={handleOpenProduct}
-                onExploreProducts={() => handleOpenProduct(CAT_FOOD_PRODUCT)}
-              />
-
-              {/* Tablet Hero Layout (md to lg) */}
-              <HeroTablet
-                onSelectProduct={handleOpenProduct}
-                onExploreProducts={() => handleOpenProduct(CAT_FOOD_PRODUCT)}
-              />
-
-              {/* Mobile Hero Layout (< md) */}
-              <HeroMobile
                 onSelectProduct={handleOpenProduct}
                 onExploreProducts={() => handleOpenProduct(CAT_FOOD_PRODUCT)}
               />
