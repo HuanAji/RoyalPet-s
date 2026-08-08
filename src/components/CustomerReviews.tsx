@@ -89,7 +89,7 @@ export const CustomerReviews: React.FC = () => {
 
     const step = () => {
       if (!isPausedRef.current) {
-        container.scrollLeft += 0.8;
+        container.scrollLeft += 1.5;
       }
 
       const singleSetWidth = container.scrollWidth / 3;
