@@ -19,7 +19,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Keyframes */
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+
 @keyframes fade-up {
   0% {
     transform: translateY(30px);
@@ -151,7 +154,114 @@ body {
   }
 }
 
-/* Custom Animation Classes */
+/* ============================================================
+   MARQUEE / SCROLL — Pure CSS (replaces requestAnimationFrame)
+   ============================================================ */
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.3333%); }
+}
+
+@keyframes marquee-scroll-reverse {
+  0%   { transform: translateX(-33.3333%); }
+  100% { transform: translateX(0); }
+}
+
+/* Reviews infinite horizontal scroll */
+.reviews-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.reviews-track:hover {
+  animation-play-state: paused;
+}
+
+/* Logo marquee pure CSS */
+.logo-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+/* ============================================================
+   BLOB FLOAT — Pure CSS (replaces motion.div infinite animate)
+   ============================================================ */
+
+@keyframes blob-float-a {
+  0%, 100% {
+    transform: translate(-30px, -20px) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(40px, 30px) scale(1.25);
+    opacity: 0.7;
+  }
+}
+
+@keyframes blob-float-b {
+  0%, 100% {
+    transform: translate(40px, 30px) scale(1.1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-40px, -30px) scale(0.9);
+    opacity: 0.6;
+  }
+}
+
+.animate-blob-a {
+  animation: blob-float-a 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-blob-b {
+  animation: blob-float-b 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* ============================================================
+   CHART LINE — Pure CSS stroke-dasharray animation
+   ============================================================ */
+
+@keyframes draw-line {
+  from { stroke-dashoffset: 200; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes clip-fill {
+  from { clip-path: inset(0 100% 0 0); opacity: 0; }
+  to   { clip-path: inset(0 0% 0 0);   opacity: 1; }
+}
+
+@keyframes pop-in {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.chart-line {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: draw-line 1.2s ease-in-out forwards;
+}
+
+.chart-area {
+  animation: clip-fill 1.2s ease-in-out forwards;
+}
+
+.chart-node {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ============================================================
+   CUSTOM ANIMATION CLASSES
+   ============================================================ */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -210,4 +320,3 @@ body {
 .delay-1000 { animation-delay: 1000ms; }
 .delay-1100 { animation-delay: 1100ms; }
 .delay-1200 { animation-delay: 1200ms; }
-

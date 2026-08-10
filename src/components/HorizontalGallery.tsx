@@ -175,6 +175,8 @@ const LandoNorrisCard: React.FC<LandoNorrisCardProps> = ({ item, idx, onOpenInsp
             <motion.img
               src={item.image}
               alt={item.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               style={{
                 transform: isHovered ? 'scale(1.1) translateZ(10px)' : 'scale(1) translateZ(0px)',
@@ -337,6 +339,8 @@ const LandoNorrisInspectModal: React.FC<InspectModalProps> = ({ item, onClose })
                   <img
                     src={item.image}
                     alt={item.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover pointer-events-none"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />

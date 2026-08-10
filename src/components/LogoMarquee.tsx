@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { Shield, Award, Sparkles, HeartHandshake } from 'lucide-react';
 
 const LOGOS = [
@@ -12,23 +11,19 @@ const LOGOS = [
   { name: 'WORLD PET CLUB', tag: 'VIP Choice' },
 ];
 
+// Triple the list so CSS marquee can loop seamlessly
+const TRIPLED = [...LOGOS, ...LOGOS, ...LOGOS];
+
 export const LogoMarquee: React.FC = () => {
   return (
     <section className="w-full bg-[#31b1ba] text-white py-6 border-y border-white/10 overflow-hidden relative select-none">
       {/* Subtle Gold Ambient Light */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-32 h-32 bg-[#FFC72C]/10 blur-2xl rounded-full pointer-events-none" />
-      
+
       <div className="flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-        <motion.div
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{
-            repeat: Infinity,
-            duration: 40,
-            ease: 'linear',
-          }}
-          className="flex items-center whitespace-nowrap gap-8 sm:gap-16 shrink-0"
-        >
-          {[...LOGOS, ...LOGOS, ...LOGOS].map((logo, idx) => (
+        {/* Pure-CSS infinite marquee — no JS, no Framer Motion, GPU composited */}
+        <div className="logo-marquee-track flex items-center whitespace-nowrap gap-8 sm:gap-16 shrink-0">
+          {TRIPLED.map((logo, idx) => (
             <div
               key={`${logo.name}-${idx}`}
               className="inline-flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-full transition-colors cursor-pointer group"
@@ -42,7 +37,7 @@ export const LogoMarquee: React.FC = () => {
               </span>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,48 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Truck, Award, PhoneCall, Zap, CheckCircle2, ArrowUpRight } from 'lucide-react';
 
 export const BrandFeatures: React.FC = () => {
-  const [chartKey, setChartKey] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setChartKey(prev => prev + 1);
-    }, 6000); // Perfectly replays the animation every 6 seconds
-    return () => clearInterval(interval);
-  }, []);
   return (
     <section className="w-full py-12 sm:py-16 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden select-none border-t border-[#31b1ba]/5">
-      {/* Dynamic Animated Soft Light Background Blurs */}
-      <motion.div
-        animate={{
-          x: [-30, 40, -30],
-          y: [-20, 30, -20],
-          scale: [1, 1.25, 1],
-          opacity: [0.4, 0.7, 0.4],
-        }}
-        transition={{
-          duration: 14,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-[#FFC72C]/20 blur-[100px] rounded-full pointer-events-none"
-      />
-
-      <motion.div
-        animate={{
-          x: [40, -40, 40],
-          y: [30, -30, 30],
-          scale: [1.1, 0.9, 1.1],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 16,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className="absolute -bottom-20 -right-20 w-[450px] h-[450px] bg-[#FF6B00]/10 blur-[120px] rounded-full pointer-events-none"
-      />
+      {/* Pure-CSS animated blobs — replaces Framer Motion infinite animate (no JS overhead) */}
+      <div className="animate-blob-a absolute -top-20 -left-20 w-[400px] h-[400px] bg-[#FFC72C]/20 blur-[100px] rounded-full pointer-events-none" />
+      <div className="animate-blob-b absolute -bottom-20 -right-20 w-[450px] h-[450px] bg-[#FF6B00]/10 blur-[120px] rounded-full pointer-events-none" />
 
       {/* Subtle Geometric Pattern Overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(#31b1ba_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.04] pointer-events-none" />
@@ -73,7 +38,7 @@ export const BrandFeatures: React.FC = () => {
         {/* ─── MOBILE: Stacked List Style ─── */}
         <div className="flex flex-col gap-4 md:hidden">
 
-          {/* Premium Area Line Chart */}
+          {/* Premium Area Line Chart — pure CSS animation, no re-render loop */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +48,7 @@ export const BrandFeatures: React.FC = () => {
           >
             {/* Subtle background glow */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#31b1ba]/5 blur-2xl pointer-events-none rounded-full" />
-            
+
             {/* Chart Header */}
             <div className="flex items-center justify-between mb-6 relative z-10">
               <div>
@@ -96,16 +61,14 @@ export const BrandFeatures: React.FC = () => {
               </div>
             </div>
 
-            {/* Chart Area */}
+            {/* Chart Area — pure CSS stroke animation */}
             <div className="relative h-28 w-full px-1">
-              <svg key={chartKey} viewBox="0 0 100 50" className="w-full h-full overflow-visible">
+              <svg viewBox="0 0 100 50" className="w-full h-full overflow-visible">
                 <defs>
-                  {/* Area fill gradient */}
                   <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#31b1ba" stopOpacity="0.25" />
                     <stop offset="100%" stopColor="#31b1ba" stopOpacity="0" />
                   </linearGradient>
-                  {/* Subtle glow for final point */}
                   <filter id="glow">
                     <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
                     <feMerge>
@@ -115,43 +78,38 @@ export const BrandFeatures: React.FC = () => {
                   </filter>
                 </defs>
 
-                {/* Subtle horizontal grid lines */}
+                {/* Grid lines */}
                 <line x1="0" y1="50" x2="100" y2="50" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
                 <line x1="0" y1="25" x2="100" y2="25" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
-                <line x1="0" y1="0" x2="100" y2="0" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
+                <line x1="0" y1="0"  x2="100" y2="0"  stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
 
-                {/* Gradient Area Fill */}
-                <motion.path
+                {/* Gradient Area Fill — CSS clip-path animation */}
+                <path
                   d="M 5 40 L 25 32 L 45 35 L 70 20 L 95 5 L 95 50 L 5 50 Z"
                   fill="url(#areaGradient)"
-                  initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
-                  whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2, delay: 0.1, ease: "easeInOut" }}
+                  className="chart-area"
                 />
 
-                {/* Main Data Line */}
-                <motion.path
+                {/* Main Data Line — CSS stroke-dashoffset animation */}
+                <path
                   d="M 5 40 L 25 32 L 45 35 L 70 20 L 95 5"
                   fill="none"
                   stroke="#31b1ba"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  initial={{ pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2, delay: 0.1, ease: "easeInOut" }}
+                  strokeDasharray="200"
+                  className="chart-line"
                 />
-                
+
                 {/* Regular Nodes */}
                 {[
-                  { x: 5, y: 40 },
-                  { x: 25, y: 32 },
-                  { x: 45, y: 35 },
-                  { x: 70, y: 20 },
+                  { x: 5, y: 40, delay: '0.45s' },
+                  { x: 25, y: 32, delay: '0.6s' },
+                  { x: 45, y: 35, delay: '0.75s' },
+                  { x: 70, y: 20, delay: '0.9s' },
                 ].map((pt, i) => (
-                  <motion.circle
+                  <circle
                     key={i}
                     cx={pt.x}
                     cy={pt.y}
@@ -159,15 +117,13 @@ export const BrandFeatures: React.FC = () => {
                     fill="white"
                     stroke="#31b1ba"
                     strokeWidth="1.5"
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 + (i * 0.15), type: "spring" }}
+                    className="chart-node"
+                    style={{ animationDelay: pt.delay }}
                   />
                 ))}
 
                 {/* Final Highlighted Node */}
-                <motion.circle
+                <circle
                   cx="95"
                   cy="5"
                   r="3.5"
@@ -175,14 +131,12 @@ export const BrandFeatures: React.FC = () => {
                   stroke="#FF6B00"
                   strokeWidth="2"
                   filter="url(#glow)"
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 1.1, type: "spring", stiffness: 400 }}
+                  className="chart-node"
+                  style={{ animationDelay: '1.1s' }}
                 />
               </svg>
             </div>
-            
+
             {/* X-Axis Labels */}
             <div className="flex justify-between text-[8px] font-mono text-gray-400 mt-3 px-1 font-semibold">
               <span>DAY 1</span>
@@ -252,7 +206,6 @@ export const BrandFeatures: React.FC = () => {
         {/* Desktop: original 12-col bento grid — hidden on mobile */}
         <div className="hidden md:grid md:grid-cols-12 gap-5 items-stretch">
 
-
           {/* Card 1: Grand Arch Pod (Span 7) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -275,7 +228,8 @@ export const BrandFeatures: React.FC = () => {
                 Formulated alongside top European veterinary nutritionists. Zero bone meal, zero chemical preservatives, and zero artificial flavors.
               </p>
             </div>
-            {/* Desktop Animated Line Chart */}
+
+            {/* Desktop Animated Line Chart — pure CSS */}
             <div className="pt-5 border-t border-[#31b1ba]/10 mt-auto">
               <div className="flex items-center justify-between mb-3 relative z-10">
                 <div className="flex items-baseline gap-2">
@@ -289,7 +243,7 @@ export const BrandFeatures: React.FC = () => {
               </div>
 
               <div className="relative h-24 w-full">
-                <svg key={chartKey} viewBox="0 0 150 40" className="w-full h-full overflow-visible">
+                <svg viewBox="0 0 150 40" className="w-full h-full overflow-visible">
                   <defs>
                     <linearGradient id="areaGradientDesktop" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="#31b1ba" stopOpacity="0.2" />
@@ -304,43 +258,38 @@ export const BrandFeatures: React.FC = () => {
                     </filter>
                   </defs>
 
-                  {/* Horizontal grid lines */}
+                  {/* Grid lines */}
                   <line x1="0" y1="40" x2="150" y2="40" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
                   <line x1="0" y1="20" x2="150" y2="20" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
-                  <line x1="0" y1="0" x2="150" y2="0" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
+                  <line x1="0" y1="0"  x2="150" y2="0"  stroke="#f1f5f9" strokeWidth="1" strokeDasharray="2 2" />
 
                   {/* Gradient Area Fill */}
-                  <motion.path
+                  <path
                     d="M 5 32 L 35 25 L 75 28 L 115 15 L 145 5 L 145 40 L 5 40 Z"
                     fill="url(#areaGradientDesktop)"
-                    initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
-                    whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: 0.1, ease: "easeInOut" }}
+                    className="chart-area"
                   />
 
                   {/* Main Data Line */}
-                  <motion.path
+                  <path
                     d="M 5 32 L 35 25 L 75 28 L 115 15 L 145 5"
                     fill="none"
                     stroke="#31b1ba"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: 0.1, ease: "easeInOut" }}
+                    strokeDasharray="200"
+                    className="chart-line"
                   />
-                  
+
                   {/* Regular Nodes */}
                   {[
-                    { x: 5, y: 32 },
-                    { x: 35, y: 25 },
-                    { x: 75, y: 28 },
-                    { x: 115, y: 15 },
+                    { x: 5,   y: 32, delay: '0.45s' },
+                    { x: 35,  y: 25, delay: '0.6s' },
+                    { x: 75,  y: 28, delay: '0.75s' },
+                    { x: 115, y: 15, delay: '0.9s' },
                   ].map((pt, i) => (
-                    <motion.circle
+                    <circle
                       key={i}
                       cx={pt.x}
                       cy={pt.y}
@@ -348,15 +297,13 @@ export const BrandFeatures: React.FC = () => {
                       fill="white"
                       stroke="#31b1ba"
                       strokeWidth="1.5"
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.4 + (i * 0.15), type: "spring" }}
+                      className="chart-node"
+                      style={{ animationDelay: pt.delay }}
                     />
                   ))}
 
                   {/* Final Highlighted Node */}
-                  <motion.circle
+                  <circle
                     cx="145"
                     cy="5"
                     r="3.5"
@@ -364,14 +311,12 @@ export const BrandFeatures: React.FC = () => {
                     stroke="#FF6B00"
                     strokeWidth="2"
                     filter="url(#glowDesktop)"
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1.1, type: "spring", stiffness: 400 }}
+                    className="chart-node"
+                    style={{ animationDelay: '1.1s' }}
                   />
                 </svg>
               </div>
-              
+
               {/* X-Axis Labels */}
               <div className="flex justify-between text-[9px] font-mono text-gray-400 mt-2 px-1 font-semibold">
                 <span>DAY 1</span>

@@ -186,6 +186,8 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
                     <img
                       src={product.image}
                       alt={product.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-0 absolute inset-0"
                     />
 
@@ -193,6 +195,8 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
                     <img
                       src={product.hoverImage}
                       alt={`${product.name} in action`}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-105 absolute inset-0"
                     />
 

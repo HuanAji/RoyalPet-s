@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'motion/react';
 import { Star, Quote, CheckCircle2, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -10,7 +10,7 @@ const REVIEWS = [
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200',
     petImage: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=600',
-    comment: 'Milo’s coat has never been this shiny! He used to be a picky eater, but he finishes his RoyalPet’s kibble in seconds every single morning.',
+    comment: "Milo's coat has never been this shiny! He used to be a picky eater, but he finishes his RoyalPet's kibble in seconds every single morning.",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const REVIEWS = [
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200',
     petImage: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600',
-    comment: 'Luna had sensitive stomach issues before switching to the Purrfectly Ginger formula. Now she is active, playful, and healthier than ever!',
+    comment: "Luna had sensitive stomach issues before switching to the Purrfectly Ginger formula. Now she is active, playful, and healthier than ever!",
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const REVIEWS = [
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200',
     petImage: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=600',
-    comment: 'Super fast delivery and supreme quality. The portion calculator was spot-on for Oliver’s daily diet. Highly recommended for pet parents!',
+    comment: "Super fast delivery and supreme quality. The portion calculator was spot-on for Oliver's daily diet. Highly recommended for pet parents!",
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const REVIEWS = [
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200',
     petImage: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&q=80&w=600',
-    comment: 'The freeze-dried chicken nibbles are Bella’s absolute favorite reward. Pure raw quality without artificial additives.',
+    comment: "The freeze-dried chicken nibbles are Bella's absolute favorite reward. Pure raw quality without artificial additives.",
   },
   {
     id: 5,
@@ -46,7 +46,7 @@ const REVIEWS = [
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200',
     petImage: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600',
-    comment: 'Added the Wild Alaskan Salmon Elixir to Rocky’s daily bowl. High agility, zero dry skin, and incredible coat luster!',
+    comment: "Added the Wild Alaskan Salmon Elixir to Rocky's daily bowl. High agility, zero dry skin, and incredible coat luster!",
   },
   {
     id: 6,
@@ -59,46 +59,11 @@ const REVIEWS = [
   },
 ];
 
-// Tripled list for infinite looping marquee
+// Tripled list — CSS marquee animates the first 33.3% and loops
 const TRIPLED_REVIEWS = [...REVIEWS, ...REVIEWS, ...REVIEWS];
 
 export const CustomerReviews: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  // Set initial scroll position to middle set
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      const setWidth = container.scrollWidth / 3;
-      container.scrollLeft = setWidth;
-    }
-  }, []);
-
-  // Continuous infinite marquee scroll animation
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    let animId: number;
-
-    const step = () => {
-      container.scrollLeft += 1.5;
-
-      const singleSetWidth = container.scrollWidth / 3;
-      if (singleSetWidth > 0) {
-        if (container.scrollLeft >= singleSetWidth * 2) {
-          container.scrollLeft -= singleSetWidth;
-        } else if (container.scrollLeft <= 5) {
-          container.scrollLeft += singleSetWidth;
-        }
-      }
-
-      animId = requestAnimationFrame(step);
-    };
-
-    animId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animId);
-  }, []);
 
   const handleManualScroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -131,7 +96,6 @@ export const CustomerReviews: React.FC = () => {
 
           {/* Carousel Controls */}
           <div className="flex items-center gap-3">
-
             <div className="flex items-center gap-2">
               <button
                 onClick={() => handleManualScroll('left')}
@@ -152,16 +116,13 @@ export const CustomerReviews: React.FC = () => {
         </div>
       </div>
 
-      {/* Smooth Continuous Horizontal Scrolling Marquee */}
-      <div
-        ref={scrollContainerRef}
-        className="w-full overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden px-4 sm:px-8"
-      >
-        <div className="flex gap-6 sm:gap-8 pb-6 min-w-max">
+      {/* Pure-CSS infinite marquee — replaces requestAnimationFrame loop */}
+      <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent_2%,black_8%,black_92%,transparent_98%)] px-0">
+        <div className="reviews-track gap-6 sm:gap-8 pb-6">
           {TRIPLED_REVIEWS.map((rev, idx) => (
             <div
               key={`${rev.id}-${idx}`}
-              className="w-[280px] sm:w-[330px] bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-gray-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group shrink-0"
+              className="w-[280px] sm:w-[330px] bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-gray-200/80 shadow-xs hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between group shrink-0"
             >
               <div>
                 {/* Pet Photo Header */}
@@ -169,6 +130,8 @@ export const CustomerReviews: React.FC = () => {
                   <img
                     src={rev.petImage}
                     alt={rev.petType}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-90" />
@@ -194,6 +157,8 @@ export const CustomerReviews: React.FC = () => {
                 <img
                   src={rev.avatar}
                   alt={rev.name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-9 h-9 rounded-full object-cover border-2 border-[#31b1ba]/20"
                 />
                 <div>
@@ -211,4 +176,3 @@ export const CustomerReviews: React.FC = () => {
     </section>
   );
 };
-
