@@ -19,7 +19,7 @@ export const FooterSection: React.FC = () => {
   };
 
   return (
-    <footer className="w-full bg-[#22828a] text-white pt-16 sm:pt-20 pb-8 px-4 sm:px-8 md:px-12 relative overflow-hidden">
+    <footer className="w-full bg-[#22828a] text-white pt-12 sm:pt-14 pb-8 px-4 sm:px-8 md:px-12 relative overflow-hidden">
       {/* Newsletter Banner */}
       <div className="max-w-6xl mx-auto mb-16">
         <motion.div
@@ -27,15 +27,13 @@ export const FooterSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-[#31b1ba] rounded-3xl p-8 sm:p-12 border border-white/10 shadow-2xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8"
+          className="bg-[#31b1ba] rounded-3xl pt-6 pb-8 px-8 sm:pt-10 sm:pb-12 sm:px-12 border border-white/10 shadow-2xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8"
         >
           {/* Subtle Glow */}
           <div className="absolute -right-20 -top-20 w-80 h-80 bg-[#FFC72C]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="max-w-xl">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#FFC72C] bg-white/10 px-3 py-1 rounded-full inline-block mb-3 border border-white/10">
-              Join the Royal Club
-            </span>
+
             <h3 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
               Get 15% Off Your First Order
             </h3>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Calculator, Sparkles, Heart, CheckCircle2, ArrowRight, Baby, Crown, Home, Activity, Zap } from 'lucide-react';
+import { Sparkles, Heart, CheckCircle2, ArrowRight, Baby, Crown, Home, Activity, Zap } from 'lucide-react';
 import { ProductType } from './Modals';
 import { CAT_FOOD_PRODUCT, DOG_FOOD_PRODUCT } from '../constants';
 
@@ -35,19 +35,16 @@ export const PetNutritionCalculator: React.FC<PetNutritionCalculatorProps> = ({
   const recommendedProduct = petType === 'cat' ? CAT_FOOD_PRODUCT : DOG_FOOD_PRODUCT;
 
   return (
-    <section className="w-full py-16 sm:py-24 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden">
+    <section className="w-full pt-10 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+          className="text-center max-w-3xl mx-auto mb-8 sm:mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] text-[#31b1ba] text-xs font-semibold mb-3 border border-[#FFC72C]/40">
-            <Calculator className="w-3.5 h-3.5 text-[#FF6B00]" />
-            <span>Interactive Tool</span>
-          </div>
+
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl text-[#31b1ba] tracking-tight">
             Royal Nutrition Calculator
           </h2>

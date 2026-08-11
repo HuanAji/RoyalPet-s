@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck, Truck, Award, PhoneCall, Zap, CheckCircle2, ArrowUpRight } from 'lucide-react';
+import { ShieldCheck, Truck, PhoneCall, Zap, CheckCircle2, ArrowUpRight } from 'lucide-react';
 
 export const BrandFeatures: React.FC = () => {
   return (
-    <section className="w-full py-12 sm:py-16 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden select-none border-t border-[#31b1ba]/5">
+    <section className="w-full pt-8 pb-12 sm:pt-12 sm:pb-16 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden select-none border-t border-[#31b1ba]/5">
       {/* Pure-CSS animated blobs — replaces Framer Motion infinite animate (no JS overhead) */}
       <div className="animate-blob-a absolute -top-20 -left-20 w-[400px] h-[400px] bg-[#FFC72C]/20 blur-[100px] rounded-full pointer-events-none" />
       <div className="animate-blob-b absolute -bottom-20 -right-20 w-[450px] h-[450px] bg-[#FF6B00]/10 blur-[120px] rounded-full pointer-events-none" />
@@ -14,17 +14,14 @@ export const BrandFeatures: React.FC = () => {
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 border-b border-[#31b1ba]/10 pb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-5 sm:mb-6 gap-4 border-b border-[#31b1ba]/10 pb-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF8E7] text-[#31b1ba] border border-[#FFC72C]/40 text-xs font-mono font-bold uppercase tracking-wider mb-2">
-              <Award className="w-3.5 h-3.5 text-[#FF6B00]" />
-              <span>THE ROYAL BENCHMARK</span>
-            </div>
+
             <h2 className="font-serif-display text-2xl sm:text-4xl md:text-5xl text-[#31b1ba] tracking-tight">
               WHY CHOOSE <span className="text-[#FF6B00] italic font-sans font-black">ROYALPET'S</span>
             </h2>

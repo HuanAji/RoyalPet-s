@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion } from 'motion/react';
-import { Star, Quote, CheckCircle2, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, Quote, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const REVIEWS = [
   {
@@ -73,8 +73,8 @@ export const CustomerReviews: React.FC = () => {
   };
 
   return (
-    <section className="w-full py-20 sm:py-28 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden select-none border-t border-gray-200/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 mb-10 sm:mb-14">
+    <section className="w-full pt-12 pb-20 sm:pt-16 sm:pb-28 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden select-none border-t border-gray-200/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 mb-6 sm:mb-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -82,10 +82,7 @@ export const CustomerReviews: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] text-[#31b1ba] text-xs font-semibold mb-3 border border-[#FFC72C]/40">
-              <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 animate-pulse" />
-              <span>Community Stories</span>
-            </div>
+
             <h2 className="font-serif-display text-3xl sm:text-5xl md:text-6xl text-[#31b1ba] tracking-tight">
               Loved by 98,000+ Royal Pets
             </h2>

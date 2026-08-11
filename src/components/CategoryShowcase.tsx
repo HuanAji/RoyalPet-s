@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface CategoryShowcaseProps {
   onSelectCategory?: (category: string) => void;
@@ -71,7 +71,7 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
   const activeIndex = hoveredIndex !== null ? hoveredIndex : 2;
 
   return (
-    <section className="w-full pt-4 pb-4 sm:pt-16 sm:pb-16 md:pt-20 md:pb-20 px-1 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden">
+    <section className="w-full pt-3 pb-4 sm:pt-10 sm:pb-16 md:pt-12 md:pb-20 px-1 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative overflow-hidden">
       {/* Decorative background glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFF8E7] rounded-full blur-3xl pointer-events-none opacity-80 -mr-20 -mt-20" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#E0F2FE] rounded-full blur-3xl pointer-events-none opacity-50 -ml-20 -mb-20" />
@@ -83,12 +83,9 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({ onSelectCate
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center text-center mb-3 sm:mb-10 md:mb-12 gap-1.5 sm:gap-3 max-w-2xl mx-auto px-2"
+          className="flex flex-col items-center text-center mb-2 sm:mb-6 md:mb-8 gap-1.5 sm:gap-3 max-w-2xl mx-auto px-2"
         >
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#FFF8E7] text-[#31b1ba] text-[10px] sm:text-xs font-semibold tracking-wide border border-[#FFC72C]/40">
-            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#FF6B00]" />
-            <span>Curated Collections</span>
-          </div>
+
           <h2 className="font-serif-display text-2xl sm:text-4xl md:text-5xl text-[#31b1ba] tracking-tight leading-tight">
             Explore Royal Categories
           </h2>

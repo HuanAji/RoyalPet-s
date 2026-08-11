@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Star, ShoppingBag, ArrowUpRight, Sparkles, Check, Eye } from 'lucide-react';
+import { Star, ShoppingBag, ArrowUpRight, Check, Eye } from 'lucide-react';
 import { ProductType } from './Modals';
 
 interface FeaturedProductsProps {
@@ -122,20 +122,17 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
   };
 
   return (
-    <section className="w-full py-16 sm:py-24 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative select-none">
+    <section className="w-full pt-10 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-8 md:px-12 bg-[#FFFDF5] text-[#31b1ba] relative select-none">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8 gap-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] text-[#31b1ba] border border-[#FFC72C]/40 text-xs font-semibold mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-[#FF6B00]" />
-              <span>Recommended Selection</span>
-            </div>
+
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl text-[#31b1ba] tracking-tight">
               Best Sellers for Royal Pets
             </h2>
