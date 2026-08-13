@@ -1,0 +1,5 @@
+# RoyalPet's — robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://www.royalpets.id/sitemap.xml

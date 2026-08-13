@@ -21,7 +21,8 @@ import {
   AccountModal,
   ProductType,
 } from './components/Modals';
-import { CAT_FOOD_PRODUCT, DOG_FOOD_PRODUCT } from './constants';
+import { ProductSchema } from './components/SeoHead';
+import { ASSETS, CAT_FOOD_PRODUCT, DOG_FOOD_PRODUCT } from './constants';
 
 export default function App() {
   const [hasLoadedGate, setHasLoadedGate] = useState(false);
@@ -101,6 +102,26 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full flex flex-col bg-[#EFFDF0] text-[#1a3d1a] relative font-sans overflow-x-hidden">
+      {/* SEO: Dynamic Product Schema JSON-LD */}
+      <ProductSchema
+        name={CAT_FOOD_PRODUCT.name}
+        description={CAT_FOOD_PRODUCT.description}
+        price={CAT_FOOD_PRODUCT.numericPrice}
+        rating={CAT_FOOD_PRODUCT.rating}
+        reviewCount={CAT_FOOD_PRODUCT.reviewsCount}
+        imageUrl={ASSETS.catFoodImage}
+        sku={CAT_FOOD_PRODUCT.id}
+      />
+      <ProductSchema
+        name={DOG_FOOD_PRODUCT.name}
+        description={DOG_FOOD_PRODUCT.description}
+        price={DOG_FOOD_PRODUCT.numericPrice}
+        rating={DOG_FOOD_PRODUCT.rating}
+        reviewCount={DOG_FOOD_PRODUCT.reviewsCount}
+        imageUrl={ASSETS.dogFoodImage}
+        sku={DOG_FOOD_PRODUCT.id}
+      />
+
       {/* 1. Preloader Interactive Gate */}
       {!hasLoadedGate ? (
         <PreloaderGate onLoaded={() => setHasLoadedGate(true)} />

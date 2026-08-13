@@ -1,10 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RoyalPet's - Everything Your Pets Love</title>
-    <meta name="description" content="RoyalPet's — Premium organic pet nutrition, cat & dog food, supplements, and accessories. Lab-tested, vet-approved, grain-free formulas for your royal companions." />
+
+    <!-- TITLE (50-60 karakter ideal) -->
+    <title>RoyalPet's — Nutrisi Organik Premium untuk Kucing & Anjing</title>
+
+    <!-- DESCRIPTION (150-160 karakter ideal) -->
+    <meta name="description"
+      content="RoyalPet's menyediakan makanan organik premium untuk kucing dan anjing. Formula bebas biji-bijian, diuji laboratorium, dan disetujui dokter hewan. Beli sekarang di Indonesia." />
+
+    <!-- KEYWORDS -->
+    <meta name="keywords"
+      content="makanan kucing organik, makanan anjing premium, pet food Indonesia, nutrisi hewan peliharaan, RoyalPets" />
+
+    <!-- AUTHOR & ROBOTS -->
+    <meta name="author" content="RoyalPet's" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- CANONICAL URL -->
+    <link rel="canonical" href="https://www.royalpets.id/" />
+
+    <!-- LANGUAGE -->
+    <meta name="language" content="Indonesian" />
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- OPEN GRAPH (Facebook, WhatsApp, Telegram, LinkedIn) -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://www.royalpets.id/" />
+    <meta property="og:title"       content="RoyalPet's — Nutrisi Organik Premium untuk Kucing & Anjing" />
+    <meta property="og:description" content="Makanan organik premium untuk kucing dan anjing. Formula bebas biji-bijian, diuji laboratorium, dan disetujui dokter hewan. Belanja di RoyalPet's sekarang." />
+    <meta property="og:image"       content="https://www.royalpets.id/og-image.jpg" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name"   content="RoyalPet's" />
+    <meta property="og:locale"      content="id_ID" />
+
+    <!-- TWITTER / X CARD -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:site"        content="@royalpetsid" />
+    <meta name="twitter:title"       content="RoyalPet's — Nutrisi Organik Premium untuk Kucing & Anjing" />
+    <meta name="twitter:description" content="Makanan organik premium untuk kucing dan anjing." />
+    <meta name="twitter:image"       content="https://www.royalpets.id/og-image.jpg" />
 
     <!-- DNS prefetch for external image CDNs -->
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
@@ -18,6 +59,111 @@
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- STRUCTURED DATA: Organization + WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.royalpets.id/#organization",
+          "name": "RoyalPet's",
+          "url": "https://www.royalpets.id",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.royalpets.id/logo.png",
+            "width": 200,
+            "height": 200
+          },
+          "description": "Toko nutrisi organik premium untuk hewan peliharaan di Indonesia.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "ID",
+            "addressLocality": "Jakarta"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "availableLanguage": "Indonesian"
+          },
+          "sameAs": [
+            "https://www.instagram.com/royalpetsid",
+            "https://www.tiktok.com/@royalpetsid"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.royalpets.id/#website",
+          "url": "https://www.royalpets.id",
+          "name": "RoyalPet's",
+          "publisher": { "@id": "https://www.royalpets.id/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://www.royalpets.id/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- STRUCTURED DATA: Products -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Premium Cat Food",
+        "description": "Makanan kucing organik premium dengan formula seimbang, kaya omega-3, bebas biji-bijian.",
+        "image": "https://www.royalpets.id/images/premium-cat-food.jpg",
+        "brand": { "@type": "Brand", "name": "RoyalPet's" },
+        "sku": "RP-CAT-001",
+        "offers": {
+          "@type": "Offer",
+          "url": "https://www.royalpets.id/produk/premium-cat-food",
+          "priceCurrency": "IDR",
+          "price": "49998",
+          "availability": "https://schema.org/InStock",
+          "seller": { "@type": "Organization", "name": "RoyalPet's" }
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "420",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Nutritious Dog Food",
+        "description": "Kibble anjing premium diperkaya dengan beras, daging sapi, ayam, dan sayuran segar.",
+        "image": "https://www.royalpets.id/images/nutritious-dog-food.jpg",
+        "brand": { "@type": "Brand", "name": "RoyalPet's" },
+        "sku": "RP-DOG-001",
+        "offers": {
+          "@type": "Offer",
+          "url": "https://www.royalpets.id/produk/nutritious-dog-food",
+          "priceCurrency": "IDR",
+          "price": "69998",
+          "availability": "https://schema.org/InStock",
+          "seller": { "@type": "Organization", "name": "RoyalPet's" }
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "380",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      }
+    ]
+    </script>
   </head>
   <body class="bg-[#EFFDF0] text-gray-900 select-none">
     <div id="root"></div>
